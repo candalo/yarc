@@ -19,3 +19,22 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Begin of Kotlin Serialization rules
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.AnnotationsKt
+
+-keepclassmembers class kotlinx.serialization.json.** {
+    *** Companion;
+}
+-keepclasseswithmembers class kotlinx.serialization.json.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+-keep,includedescriptorclasses class com.github.candalo.**$$serializer { *; }
+-keepclassmembers class com.github.candalo.** {
+    *** Companion;
+}
+-keepclasseswithmembers class com.github.candalo.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+# End of Kotlin Serialization rules
