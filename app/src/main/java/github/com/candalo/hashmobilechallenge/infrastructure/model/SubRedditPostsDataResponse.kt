@@ -8,5 +8,9 @@ internal data class SubRedditPostsDataResponse(
     @SerialName("dist")
     val itemsCount: Int,
     @SerialName("children")
-    val post: SubRedditPostResponse
+    val posts: List<SubRedditPostResponse>,
+    @SerialName("before")
+    val before: String,
+    @SerialName("after")
+    val after: String
 )

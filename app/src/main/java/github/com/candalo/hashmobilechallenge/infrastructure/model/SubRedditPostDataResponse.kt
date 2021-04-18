@@ -7,6 +7,8 @@ import java.time.Instant
 
 @Serializable
 internal data class SubRedditPostDataResponse(
+    @SerialName("name")
+    val id: String,
     @SerialName("title")
     val title: String,
     @SerialName("author")
