@@ -12,6 +12,6 @@ internal class PostRepository(
     private val datasource: Flow<PagingData<SubRedditPostResponse>>,
     private val mapper: PostMapper
 ) {
-    suspend fun fetchPosts(): Flow<PagingData<SubRedditPost>> =
+    fun fetchPosts(): Flow<PagingData<SubRedditPost>> =
         datasource.map { it.map { response -> mapper.map(response) } }
 }
