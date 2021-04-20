@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import github.com.candalo.hashmobilechallenge.R
 import github.com.candalo.hashmobilechallenge.databinding.ItemPostBinding
 import github.com.candalo.hashmobilechallenge.domain.model.SubRedditPost
@@ -18,14 +19,20 @@ internal class PostsAdapter : PagingDataAdapter<SubRedditPost, PostsViewHolder>(
 }
 
 internal class PostsViewHolder(
-    parent: ViewGroup
+    private val parent: ViewGroup
 ) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
 ) {
     private val binding = ItemPostBinding.bind(itemView)
 
     fun bind(post: SubRedditPost?) {
-        // TODO Bind values
+        with(binding) {
+            Glide.with(parent.context).load(post?.media?.thumbnailUrl).into(ivPostMediaThumbnail)
+            tvPostTitle.text = post?.title
+            tvPostAuthor.text = post?.authorName
+            tvPostCreationDate.text = post?.publicationTimestamp.toString()
+            tvPostCommentsCount.text = post?.commentsCount.toString()
+        }
     }
 }
 

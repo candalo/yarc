@@ -6,5 +6,5 @@ import androidx.paging.cachedIn
 import github.com.candalo.hashmobilechallenge.infrastructure.repository.PostRepository
 
 internal class PostsViewModel(private val repository: PostRepository) : ViewModel() {
-    private fun fetchPosts() = repository.fetchPosts().cachedIn(viewModelScope)
+    fun fetchPosts() = repository.fetchPosts().cachedIn(viewModelScope)
 }

@@ -5,15 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import github.com.candalo.hashmobilechallenge.databinding.FragmentPostsBinding
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsAdapter
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsLoadStateAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class PostsFragment : Fragment() {
     private var _binding: FragmentPostsBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: PostsViewModel by viewModel()
     private val postsAdapter: PostsAdapter by inject()
     private val postsLoadStateAdapter: PostsLoadStateAdapter by inject()
 
@@ -28,14 +33,17 @@ internal class PostsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvPosts.apply {
-
-        }
+        configureAdapter()
+        populatePosts()
     }
 
     private fun configureAdapter() {
-        binding.rvPosts.apply {
-            adapter = postsAdapter.apply { withLoadStateFooter(postsLoadStateAdapter) }
+        binding.rvPosts.adapter = postsAdapter.apply { withLoadStateFooter(postsLoadStateAdapter) }
+    }
+
+    private fun populatePosts() {
+        lifecycleScope.launch {
+            viewModel.fetchPosts().collectLatest { postsAdapter.submitData(it) }
         }
     }
 

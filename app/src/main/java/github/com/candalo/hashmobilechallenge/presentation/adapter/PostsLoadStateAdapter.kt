@@ -1,20 +1,33 @@
 package github.com.candalo.hashmobilechallenge.presentation.adapter
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
+import github.com.candalo.hashmobilechallenge.R
+import github.com.candalo.hashmobilechallenge.databinding.ItemPostLoadingBinding
 
-internal class PostsLoadStateAdapter : LoadStateAdapter<PostsLoadStateAdapter.ViewHolder>() {
+internal class PostsLoadStateAdapter : LoadStateAdapter<PostsLoadStateViewHolder>() {
 
-    internal class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    override fun onBindViewHolder(holder: PostsLoadStateViewHolder, loadState: LoadState) =
+        holder.bind(loadState)
 
-    override fun onBindViewHolder(holder: ViewHolder, loadState: LoadState) {
-        TODO("Not yet implemented")
-    }
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        loadState: LoadState
+    ): PostsLoadStateViewHolder = PostsLoadStateViewHolder(parent)
+}
 
-    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): ViewHolder {
-        TODO("Not yet implemented")
+internal class PostsLoadStateViewHolder(
+    parent: ViewGroup
+) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.item_post_loading, parent, false)
+) {
+    private val binding = ItemPostLoadingBinding.bind(itemView)
+
+    fun bind(loadState: LoadState) {
+        binding.pbPosts.isVisible = loadState is LoadState.Loading
     }
 }
