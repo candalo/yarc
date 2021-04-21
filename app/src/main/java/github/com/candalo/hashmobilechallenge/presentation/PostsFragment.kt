@@ -46,7 +46,7 @@ internal class PostsFragment : Fragment() {
     }
 
     private fun configureAdapter() {
-        binding.rvPosts.adapter = postsAdapter.apply { withLoadStateFooter(postsLoadStateAdapter) }
+        binding.rvPosts.adapter = postsAdapter.withLoadStateFooter(postsLoadStateAdapter)
     }
 
     private fun populatePosts() {
