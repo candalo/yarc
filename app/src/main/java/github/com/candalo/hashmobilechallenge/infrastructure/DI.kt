@@ -19,18 +19,22 @@ import retrofit2.Retrofit
 internal val infrastructure = module {
     single {
         Retrofit.Builder()
-                .baseUrl("https://www.reddit.com/")
-                .addConverterFactory(Json { ignoreUnknownKeys = true }.asConverterFactory(MediaType.get("application/json")))
-                .build()
-                .create(Endpoints::class.java)
+            .baseUrl("https://www.reddit.com/")
+            .addConverterFactory(
+                Json { ignoreUnknownKeys = true }.asConverterFactory(
+                    MediaType.get("application/json")
+                )
+            )
+            .build()
+            .create(Endpoints::class.java)
     }
     factory {
         PostPagingSource(get())
     }
     factory {
         Pager(
-                config = PagingConfig(pageSize = 10),
-                pagingSourceFactory = { get<PostPagingSource>() }
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = { get<PostPagingSource>() }
         ).flow
     }
     factory {
@@ -38,8 +42,8 @@ internal val infrastructure = module {
     }
     factory {
         PostRepository(
-                datasource = get(),
-                mapper = get()
+            datasource = get(),
+            mapper = get()
         )
     }
 }
@@ -53,7 +57,7 @@ internal val presentation = module {
     }
     viewModel {
         PostsViewModel(
-                repository = get()
+            repository = get()
         )
     }
 }

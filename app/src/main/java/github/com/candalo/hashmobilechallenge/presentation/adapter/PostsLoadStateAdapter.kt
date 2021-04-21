@@ -12,18 +12,18 @@ import github.com.candalo.hashmobilechallenge.databinding.ItemPostLoadingBinding
 internal class PostsLoadStateAdapter : LoadStateAdapter<PostsLoadStateViewHolder>() {
 
     override fun onBindViewHolder(holder: PostsLoadStateViewHolder, loadState: LoadState) =
-            holder.bind(loadState)
+        holder.bind(loadState)
 
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            loadState: LoadState
+        parent: ViewGroup,
+        loadState: LoadState
     ): PostsLoadStateViewHolder = PostsLoadStateViewHolder(parent)
 }
 
 internal class PostsLoadStateViewHolder(
-        parent: ViewGroup
+    parent: ViewGroup
 ) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_post_loading, parent, false)
+    LayoutInflater.from(parent.context).inflate(R.layout.item_post_loading, parent, false)
 ) {
     private val binding = ItemPostLoadingBinding.bind(itemView)
 

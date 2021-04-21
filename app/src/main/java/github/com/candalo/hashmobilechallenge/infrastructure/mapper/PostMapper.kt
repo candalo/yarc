@@ -6,15 +6,15 @@ import github.com.candalo.hashmobilechallenge.infrastructure.model.SubRedditPost
 
 internal class PostMapper {
     fun map(postResponse: SubRedditPostResponse): SubRedditPost =
-            SubRedditPost(
-                    postResponse.data.id,
-                    postResponse.data.title,
-                    postResponse.data.authorName,
-                    postResponse.data.commentsCount,
-                    postResponse.data.timestamp,
-                    SubRedditPostMedia(
-                            if (postResponse.data.thumbnailUrl == "self") null else postResponse.data.thumbnailUrl,
-                            postResponse.data.mediaUrl
-                    )
+        SubRedditPost(
+            postResponse.data.id,
+            postResponse.data.title,
+            postResponse.data.authorName,
+            postResponse.data.commentsCount,
+            postResponse.data.timestamp,
+            SubRedditPostMedia(
+                if (postResponse.data.thumbnailUrl == "self") null else postResponse.data.thumbnailUrl,
+                postResponse.data.mediaUrl
             )
+        )
 }

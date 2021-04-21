@@ -7,7 +7,7 @@ import retrofit2.http.Query
 internal interface Endpoints {
     @GET("r/androiddev.json")
     suspend fun getPosts(
-            @Query("after") after: String,
-            @Query("limit") limit: Int = 10
+        @Query("after") after: String,
+        @Query("limit") limit: Int = 10
     ): SubRedditPostsResponse
 }

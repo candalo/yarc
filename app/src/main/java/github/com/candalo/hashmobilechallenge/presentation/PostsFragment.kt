@@ -24,9 +24,9 @@ internal class PostsFragment : Fragment() {
     private val postsLoadStateAdapter: PostsLoadStateAdapter by inject()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPostsBinding.inflate(inflater, container, false)
         return binding.root
@@ -41,7 +41,7 @@ internal class PostsFragment : Fragment() {
 
     private fun configureRecyclerView() {
         binding.rvPosts.addItemDecoration(
-                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         )
     }
 

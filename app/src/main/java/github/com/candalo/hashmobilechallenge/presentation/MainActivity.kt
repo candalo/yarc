@@ -17,8 +17,8 @@ internal class MainActivity : AppCompatActivity() {
 
     private fun inflateFragment() {
         supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragmentContainer, PostsFragment())
-                .commit()
+            .beginTransaction()
+            .add(R.id.fragmentContainer, PostsFragment())
+            .commit()
     }
 }

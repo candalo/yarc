@@ -10,11 +10,11 @@ import java.time.Instant
 
 internal object InstantSerializer : KSerializer<Instant> {
     override val descriptor: SerialDescriptor =
-            PrimitiveSerialDescriptor(InstantSerializer::class.java.name, PrimitiveKind.DOUBLE)
+        PrimitiveSerialDescriptor(InstantSerializer::class.java.name, PrimitiveKind.DOUBLE)
 
     override fun deserialize(decoder: Decoder): Instant =
-            Instant.ofEpochSecond(decoder.decodeDouble().toLong())
+        Instant.ofEpochSecond(decoder.decodeDouble().toLong())
 
     override fun serialize(encoder: Encoder, value: Instant) =
-            encoder.encodeDouble(value.toEpochMilli().toDouble())
+        encoder.encodeDouble(value.toEpochMilli().toDouble())
 }

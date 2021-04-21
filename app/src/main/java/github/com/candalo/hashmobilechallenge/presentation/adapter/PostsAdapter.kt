@@ -15,16 +15,16 @@ import github.com.candalo.hashmobilechallenge.presentation.extensions.toElapsedD
 
 internal class PostsAdapter : PagingDataAdapter<SubRedditPost, PostsViewHolder>(PostsComparator) {
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) =
-            holder.bind(getItem(position))
+        holder.bind(getItem(position))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder =
-            PostsViewHolder(parent)
+        PostsViewHolder(parent)
 }
 
 internal class PostsViewHolder(
-        private val parent: ViewGroup
+    private val parent: ViewGroup
 ) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
+    LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
 ) {
     private val binding = ItemPostBinding.bind(itemView)
 
@@ -46,8 +46,8 @@ internal class PostsViewHolder(
 
 internal object PostsComparator : DiffUtil.ItemCallback<SubRedditPost>() {
     override fun areItemsTheSame(oldItem: SubRedditPost, newItem: SubRedditPost): Boolean =
-            oldItem.id == newItem.id
+        oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: SubRedditPost, newItem: SubRedditPost): Boolean =
-            oldItem == newItem
+        oldItem == newItem
 }

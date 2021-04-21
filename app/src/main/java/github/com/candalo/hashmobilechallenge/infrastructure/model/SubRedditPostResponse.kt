@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class SubRedditPostResponse(
-        @SerialName("data")
-        val data: SubRedditPostDataResponse
+    @SerialName("data")
+    val data: SubRedditPostDataResponse
 )

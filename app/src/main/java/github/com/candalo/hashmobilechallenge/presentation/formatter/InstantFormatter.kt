@@ -11,7 +11,10 @@ private const val HOURS = 24
 
 internal class InstantFormatter(private val context: Context) {
     fun format(instant: Instant): String {
-        val duration = Duration.between(instant.atZone(ZoneId.systemDefault()), Instant.now().atZone(ZoneId.systemDefault()))
+        val duration = Duration.between(
+            instant.atZone(ZoneId.systemDefault()),
+            Instant.now().atZone(ZoneId.systemDefault())
+        )
 
         return when {
             duration.toMinutes() < MINUTES -> {

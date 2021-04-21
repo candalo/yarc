@@ -7,19 +7,19 @@ import java.time.Instant
 
 @Serializable
 internal data class SubRedditPostDataResponse(
-        @SerialName("name")
-        val id: String,
-        @SerialName("title")
-        val title: String,
-        @SerialName("author")
-        val authorName: String,
-        @SerialName("num_comments")
-        val commentsCount: Int,
-        @SerialName("created_utc")
-        @Serializable(InstantSerializer::class)
-        val timestamp: Instant,
-        @SerialName("thumbnail")
-        val thumbnailUrl: String? = null,
-        @SerialName("url_overridden_by_dest")
-        val mediaUrl: String? = null
+    @SerialName("name")
+    val id: String,
+    @SerialName("title")
+    val title: String,
+    @SerialName("author")
+    val authorName: String,
+    @SerialName("num_comments")
+    val commentsCount: Int,
+    @SerialName("created_utc")
+    @Serializable(InstantSerializer::class)
+    val timestamp: Instant,
+    @SerialName("thumbnail")
+    val thumbnailUrl: String? = null,
+    @SerialName("url_overridden_by_dest")
+    val mediaUrl: String? = null
 )
