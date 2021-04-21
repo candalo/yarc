@@ -15,7 +15,7 @@ internal data class SubRedditPostDataResponse(
         val authorName: String,
         @SerialName("num_comments")
         val commentsCount: Int,
-        @SerialName("created")
+        @SerialName("created_utc")
         @Serializable(InstantSerializer::class)
         val timestamp: Instant,
         @SerialName("thumbnail")

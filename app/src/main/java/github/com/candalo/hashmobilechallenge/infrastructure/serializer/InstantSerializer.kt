@@ -13,7 +13,7 @@ internal object InstantSerializer : KSerializer<Instant> {
             PrimitiveSerialDescriptor(InstantSerializer::class.java.name, PrimitiveKind.DOUBLE)
 
     override fun deserialize(decoder: Decoder): Instant =
-            Instant.ofEpochMilli(decoder.decodeDouble().toLong())
+            Instant.ofEpochSecond(decoder.decodeDouble().toLong())
 
     override fun serialize(encoder: Encoder, value: Instant) =
             encoder.encodeDouble(value.toEpochMilli().toDouble())
