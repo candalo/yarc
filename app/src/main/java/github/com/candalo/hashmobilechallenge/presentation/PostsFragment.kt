@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import github.com.candalo.hashmobilechallenge.databinding.FragmentPostsBinding
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsAdapter
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsLoadStateAdapter
@@ -23,9 +24,9 @@ internal class PostsFragment : Fragment() {
     private val postsLoadStateAdapter: PostsLoadStateAdapter by inject()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPostsBinding.inflate(inflater, container, false)
         return binding.root
@@ -33,8 +34,15 @@ internal class PostsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        configureRecyclerView()
         configureAdapter()
         populatePosts()
+    }
+
+    private fun configureRecyclerView() {
+        binding.rvPosts.addItemDecoration(
+                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        )
     }
 
     private fun configureAdapter() {

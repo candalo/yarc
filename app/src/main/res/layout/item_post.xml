@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="@id/tvPostTitle"
         app:layout_constraintTop_toBottomOf="@id/tvPostTitle"
         app:layout_constraintVertical_bias="1.0"
-        tools:text="areddituser"/>
+        tools:text="areddituser" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivPostCommentsCountIcon"
@@ -66,7 +66,7 @@
         app:layout_constraintStart_toEndOf="@id/ivPostCommentsCountIcon"
         app:layout_constraintTop_toTopOf="@id/ivPostCommentsCountIcon"
         app:layout_constraintBottom_toBottomOf="@id/ivPostCommentsCountIcon"
-        tools:text="10"/>
+        tools:text="10" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivPostCreationDateIcon"
@@ -76,7 +76,7 @@
         app:srcCompat="@drawable/outline_schedule_24"
         app:layout_constraintStart_toEndOf="@id/tvPostCommentsCount"
         app:layout_constraintTop_toTopOf="@id/tvPostCommentsCount"
-        app:layout_constraintBottom_toBottomOf="@id/tvPostCommentsCount"/>
+        app:layout_constraintBottom_toBottomOf="@id/tvPostCommentsCount" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPostCreationDate"
@@ -88,6 +88,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/ivPostCreationDateIcon"
         app:layout_constraintBottom_toBottomOf="@id/ivPostCreationDateIcon"
-        tools:text="10h"/>
+        tools:text="10h" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

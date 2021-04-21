@@ -7,26 +7,30 @@ import github.com.candalo.hashmobilechallenge.infrastructure.api.Endpoints
 import github.com.candalo.hashmobilechallenge.infrastructure.datasource.PostPagingSource
 import github.com.candalo.hashmobilechallenge.infrastructure.mapper.PostMapper
 import github.com.candalo.hashmobilechallenge.infrastructure.repository.PostRepository
+import github.com.candalo.hashmobilechallenge.presentation.PostsViewModel
+import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsAdapter
+import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsLoadStateAdapter
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
 internal val infrastructure = module {
     single {
         Retrofit.Builder()
-            .baseUrl("https://www.reddit.com/")
-            .addConverterFactory(Json.asConverterFactory(MediaType.get("application/json")))
-            .build()
-            .create(Endpoints::class.java)
+                .baseUrl("https://www.reddit.com/")
+                .addConverterFactory(Json { ignoreUnknownKeys = true }.asConverterFactory(MediaType.get("application/json")))
+                .build()
+                .create(Endpoints::class.java)
     }
     factory {
         PostPagingSource(get())
     }
     factory {
         Pager(
-            config = PagingConfig(pageSize = 10),
-            pagingSourceFactory =  { get<PostPagingSource>() }
+                config = PagingConfig(pageSize = 10),
+                pagingSourceFactory = { get<PostPagingSource>() }
         ).flow
     }
     factory {
@@ -34,8 +38,22 @@ internal val infrastructure = module {
     }
     factory {
         PostRepository(
-            datasource = get(),
-            mapper = get()
+                datasource = get(),
+                mapper = get()
+        )
+    }
+}
+
+internal val presentation = module {
+    factory {
+        PostsAdapter()
+    }
+    factory {
+        PostsLoadStateAdapter()
+    }
+    viewModel {
+        PostsViewModel(
+                repository = get()
         )
     }
 }

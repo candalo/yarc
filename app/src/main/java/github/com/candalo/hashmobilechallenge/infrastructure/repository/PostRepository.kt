@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 internal class PostRepository(
-    private val datasource: Flow<PagingData<SubRedditPostResponse>>,
-    private val mapper: PostMapper
+        private val datasource: Flow<PagingData<SubRedditPostResponse>>,
+        private val mapper: PostMapper
 ) {
     fun fetchPosts(): Flow<PagingData<SubRedditPost>> =
-        datasource.map { it.map { response -> mapper.map(response) } }
+            datasource.map { it.map { response -> mapper.map(response) } }
 }
