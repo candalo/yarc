@@ -40,6 +40,7 @@ internal class PostsViewHolder(
             tvPostAuthor.text = post?.authorName
             tvPostCreationDate.text = post?.publicationTimestamp?.toElapsedDate(parent.context)
             tvPostCommentsCount.text = post?.commentsCount.toString()
+            tvPostUpvotesCount.text = post?.upvotesCount.toString()
         }
     }
 }

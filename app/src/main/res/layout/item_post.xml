@@ -56,7 +56,7 @@
         tools:text="areddituser" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivPostCommentsCountIcon"
+        android:id="@+id/ivPostUpvotesCountIcon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -65,6 +65,26 @@
         app:layout_constraintStart_toStartOf="@id/tvPostAuthor"
         app:layout_constraintTop_toBottomOf="@id/tvPostAuthor"
         app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/outline_arrow_upward_24" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPostUpvotesCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/ivPostUpvotesCountIcon"
+        app:layout_constraintStart_toEndOf="@id/ivPostUpvotesCountIcon"
+        app:layout_constraintTop_toTopOf="@id/ivPostUpvotesCountIcon"
+        tools:text="90" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPostCommentsCountIcon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvPostUpvotesCount"
+        app:layout_constraintStart_toEndOf="@id/tvPostUpvotesCount"
+        app:layout_constraintTop_toTopOf="@id/tvPostUpvotesCount"
         app:srcCompat="@drawable/outline_forum_24" />
 
     <androidx.appcompat.widget.AppCompatTextView

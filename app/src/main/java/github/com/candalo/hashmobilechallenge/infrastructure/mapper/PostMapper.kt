@@ -10,6 +10,7 @@ internal class PostMapper {
             postResponse.data.id,
             postResponse.data.title,
             postResponse.data.authorName,
+            postResponse.data.upvotesCount,
             postResponse.data.commentsCount,
             postResponse.data.timestamp,
             SubRedditPostMedia(
