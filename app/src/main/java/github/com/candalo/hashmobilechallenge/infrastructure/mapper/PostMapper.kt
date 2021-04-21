@@ -13,7 +13,7 @@ internal class PostMapper {
                     postResponse.data.commentsCount,
                     postResponse.data.timestamp,
                     SubRedditPostMedia(
-                            postResponse.data.thumbnailUrl,
+                            if (postResponse.data.thumbnailUrl == "self") null else postResponse.data.thumbnailUrl,
                             postResponse.data.mediaUrl
                     )
             )

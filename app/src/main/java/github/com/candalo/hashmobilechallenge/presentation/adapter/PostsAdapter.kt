@@ -2,6 +2,7 @@ package github.com.candalo.hashmobilechallenge.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import github.com.candalo.hashmobilechallenge.R
 import github.com.candalo.hashmobilechallenge.databinding.ItemPostBinding
 import github.com.candalo.hashmobilechallenge.domain.model.SubRedditPost
+import github.com.candalo.hashmobilechallenge.presentation.extensions.toElapsedDate
 
 internal class PostsAdapter : PagingDataAdapter<SubRedditPost, PostsViewHolder>(PostsComparator) {
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) =
@@ -27,10 +29,14 @@ internal class PostsViewHolder(
 
     fun bind(post: SubRedditPost?) {
         with(binding) {
-            Glide.with(parent.context).load(post?.media?.thumbnailUrl).into(ivPostMediaThumbnail)
+            if (post?.media?.thumbnailUrl != null) {
+                Glide.with(parent.context).load(post.media.thumbnailUrl).into(ivPostMediaThumbnail)
+            } else {
+                ivPostMediaThumbnail.isGone = true
+            }
             tvPostTitle.text = post?.title
             tvPostAuthor.text = post?.authorName
-            tvPostCreationDate.text = post?.publicationTimestamp.toString()
+            tvPostCreationDate.text = post?.publicationTimestamp?.toElapsedDate(parent.context)
             tvPostCommentsCount.text = post?.commentsCount.toString()
         }
     }
