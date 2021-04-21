@@ -3,6 +3,7 @@ package github.com.candalo.hashmobilechallenge.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,7 @@ internal class PostsViewHolder(
     fun bind(post: SubRedditPost?) {
         with(binding) {
             if (post?.media?.thumbnailUrl != null) {
+                ivPostMediaThumbnail.isVisible = true
                 Glide.with(parent.context).load(post.media.thumbnailUrl).into(ivPostMediaThumbnail)
             } else {
                 ivPostMediaThumbnail.isGone = true
