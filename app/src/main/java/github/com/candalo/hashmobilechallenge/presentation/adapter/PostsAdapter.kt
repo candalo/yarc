@@ -31,10 +31,9 @@ internal class PostsViewHolder(
     fun bind(post: SubRedditPost?) {
         with(binding) {
             if (post?.media?.thumbnailUrl != null) {
-                ivPostMediaThumbnail.isVisible = true
                 Glide.with(parent.context).load(post.media.thumbnailUrl).into(ivPostMediaThumbnail)
             } else {
-                ivPostMediaThumbnail.isGone = true
+                ivPostMediaThumbnail.setImageResource(R.drawable.outline_article_24)
             }
             tvPostTitle.text = post?.title
             tvPostAuthor.text = post?.authorName
