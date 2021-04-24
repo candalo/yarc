@@ -11,6 +11,8 @@ internal data class SubRedditPostDataResponse(
     val id: String,
     @SerialName("title")
     val title: String,
+    @SerialName("selftext")
+    val description: String,
     @SerialName("author")
     val authorName: String,
     @SerialName("ups")

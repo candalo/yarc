@@ -9,6 +9,7 @@ internal class PostMapper {
         SubRedditPost(
             postResponse.data.id,
             postResponse.data.title,
+            postResponse.data.description,
             postResponse.data.authorName,
             postResponse.data.upvotesCount,
             postResponse.data.commentsCount,
