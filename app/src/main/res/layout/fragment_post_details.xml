@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPostMedia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivPostMedia"
+            tools:text="Another shout of frustration from the Google apps" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@id/tvPostTitle"
+            app:layout_constraintStart_toStartOf="@id/tvPostTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvPostTitle"
+            tools:text="@string/post_description_example" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostAuthor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toTopOf="@id/tvPostCommentsCount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvPostDescription"
+            app:layout_constraintTop_toBottomOf="@id/tvPostDescription"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="areddituser" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPostUpvotesCountIcon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvPostAuthor"
+            app:layout_constraintTop_toBottomOf="@id/tvPostAuthor"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/outline_arrow_upward_24" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostUpvotesCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivPostUpvotesCountIcon"
+            app:layout_constraintStart_toEndOf="@id/ivPostUpvotesCountIcon"
+            app:layout_constraintTop_toTopOf="@id/ivPostUpvotesCountIcon"
+            tools:text="90" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPostCommentsCountIcon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvPostUpvotesCount"
+            app:layout_constraintStart_toEndOf="@id/tvPostUpvotesCount"
+            app:layout_constraintTop_toTopOf="@id/tvPostUpvotesCount"
+            app:srcCompat="@drawable/outline_forum_24" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostCommentsCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivPostCommentsCountIcon"
+            app:layout_constraintStart_toEndOf="@id/ivPostCommentsCountIcon"
+            app:layout_constraintTop_toTopOf="@id/ivPostCommentsCountIcon"
+            tools:text="10" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPostCreationDateIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvPostCommentsCount"
+            app:layout_constraintStart_toEndOf="@id/tvPostCommentsCount"
+            app:layout_constraintTop_toTopOf="@id/tvPostCommentsCount"
+            app:srcCompat="@drawable/outline_schedule_24" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostCreationDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivPostCreationDateIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivPostCreationDateIcon"
+            app:layout_constraintTop_toTopOf="@id/ivPostCreationDateIcon"
+            tools:text="10h" />
+
+        <View
+            android:id="@+id/divisor"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivPostUpvotesCountIcon" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPostComments"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divisor" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

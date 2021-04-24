@@ -3,4 +3,5 @@
     <string name="post_creation_date_minutes_interval">%sm</string>
     <string name="post_creation_date_hours_interval">%sh</string>
     <string name="post_creation_date_days_interval">%sd</string>
+    <string name="post_description_example">It just amazes me every time how bad Google Play Store/Developer/Console/Review experience is.\n\nMy app is on the store (no name to avoid the promotion ban).\n\nThe last version has been approved 2 weeks ago. All is good.</string>
 </resources>
