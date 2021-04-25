@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 internal data class PostCommentDataResponse(
     @SerialName("body")
     val body: String,
+    @SerialName("author")
+    val authorName: String,
     @SerialName("replies")
-    val replies: List<PostDetailsResponse>? = null
+    val replies: PostDetailsResponse? = null
 )

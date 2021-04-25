@@ -14,5 +14,7 @@ internal interface Endpoints {
     ): PostsResponse
 
     @GET("{commentsEndpoint}")
-    suspend fun getComments(@Path("commentsEndpoint") endpoint: String): PostDetailsResponse
+    suspend fun getComments(
+        @Path("commentsEndpoint") endpoint: String
+    ): PostDetailsResponse
 }
