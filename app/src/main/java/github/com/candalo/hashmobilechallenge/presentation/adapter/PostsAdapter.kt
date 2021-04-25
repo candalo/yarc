@@ -2,8 +2,6 @@ package github.com.candalo.hashmobilechallenge.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,35 +9,53 @@ import com.bumptech.glide.Glide
 import github.com.candalo.hashmobilechallenge.R
 import github.com.candalo.hashmobilechallenge.databinding.ItemPostBinding
 import github.com.candalo.hashmobilechallenge.domain.model.SubRedditPost
-import github.com.candalo.hashmobilechallenge.presentation.extensions.toElapsedDate
 
-internal class PostsAdapter : PagingDataAdapter<SubRedditPost, PostsViewHolder>(PostsComparator) {
+internal class PostsAdapter(
+    private val onItemClickListener: (SubRedditPost) -> Unit
+) : PagingDataAdapter<SubRedditPost, PostsViewHolder>(PostsComparator) {
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) =
         holder.bind(getItem(position))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder =
-        PostsViewHolder(parent)
+        PostsViewHolder(parent, onItemClickListener)
 }
 
 internal class PostsViewHolder(
-    private val parent: ViewGroup
+    private val parent: ViewGroup,
+    private val onItemClickListener: (SubRedditPost) -> Unit
 ) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
 ) {
     private val binding = ItemPostBinding.bind(itemView)
 
     fun bind(post: SubRedditPost?) {
+        post?.let {
+            it.populateItemData()
+            it.configureItemClick()
+        }
+    }
+
+    private fun SubRedditPost.populateItemData() {
         with(binding) {
-            if (post?.media?.thumbnailUrl != null) {
-                Glide.with(parent.context).load(post.media.thumbnailUrl).into(ivPostMediaThumbnail)
+            if (this@populateItemData.media.thumbnailUrl != null) {
+                Glide
+                    .with(parent.context)
+                    .load(this@populateItemData.media.thumbnailUrl)
+                    .into(ivPostMediaThumbnail)
             } else {
                 ivPostMediaThumbnail.setImageResource(R.drawable.outline_article_24)
             }
-            tvPostTitle.text = post?.title
-            tvPostAuthor.text = post?.authorName
-            tvPostCreationDate.text = post?.publicationTimestamp?.toElapsedDate(parent.context)
-            tvPostCommentsCount.text = post?.commentsCount.toString()
-            tvPostUpvotesCount.text = post?.upvotesCount.toString()
+            tvPostTitle.text = this@populateItemData.title
+            tvPostAuthor.text = this@populateItemData.authorName
+            tvPostCreationDate.text = this@populateItemData.publicationElapsedTime
+            tvPostCommentsCount.text = this@populateItemData.commentsCount.toString()
+            tvPostUpvotesCount.text = this@populateItemData.upvotesCount.toString()
+        }
+    }
+
+    private fun SubRedditPost.configureItemClick() {
+        itemView.setOnClickListener {
+            onItemClickListener(this)
         }
     }
 }

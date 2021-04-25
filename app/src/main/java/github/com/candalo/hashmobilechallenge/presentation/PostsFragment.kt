@@ -6,22 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import github.com.candalo.hashmobilechallenge.databinding.FragmentPostsBinding
+import github.com.candalo.hashmobilechallenge.domain.model.SubRedditPost
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsAdapter
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsLoadStateAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
-internal class PostsFragment : Fragment() {
+class PostsFragment : Fragment() {
     private var _binding: FragmentPostsBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: PostsViewModel by viewModel()
-    private val postsAdapter: PostsAdapter by inject()
+    private val postsAdapter: PostsAdapter by inject { parametersOf(onItemSelected) }
     private val postsLoadStateAdapter: PostsLoadStateAdapter by inject()
+    private val onItemSelected: (SubRedditPost) -> Unit = { subRedditPost ->
+        findNavController().navigate(
+            PostsFragmentDirections.navigateToPostDetailsFragment(subRedditPost)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

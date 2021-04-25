@@ -3,6 +3,7 @@ package github.com.candalo.hashmobilechallenge.infrastructure
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import github.com.candalo.hashmobilechallenge.domain.model.SubRedditPost
 import github.com.candalo.hashmobilechallenge.infrastructure.api.Endpoints
 import github.com.candalo.hashmobilechallenge.infrastructure.datasource.PostPagingSource
 import github.com.candalo.hashmobilechallenge.infrastructure.mapper.PostMapper
@@ -38,7 +39,9 @@ internal val infrastructure = module {
         ).flow
     }
     factory {
-        PostMapper()
+        PostMapper(
+            context = get()
+        )
     }
     factory {
         PostRepository(
@@ -49,8 +52,8 @@ internal val infrastructure = module {
 }
 
 internal val presentation = module {
-    factory {
-        PostsAdapter()
+    factory { (onItemClickListener: (SubRedditPost) -> Unit) ->
+        PostsAdapter(onItemClickListener)
     }
     factory {
         PostsLoadStateAdapter()
