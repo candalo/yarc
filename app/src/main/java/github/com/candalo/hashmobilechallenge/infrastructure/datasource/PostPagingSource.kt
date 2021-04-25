@@ -3,19 +3,19 @@ package github.com.candalo.hashmobilechallenge.infrastructure.datasource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import github.com.candalo.hashmobilechallenge.infrastructure.api.Endpoints
-import github.com.candalo.hashmobilechallenge.infrastructure.model.SubRedditPostResponse
+import github.com.candalo.hashmobilechallenge.infrastructure.model.PostResponse
 import retrofit2.HttpException
 import java.io.IOException
 
 internal class PostPagingSource(
     private val endpoints: Endpoints
-) : PagingSource<String, SubRedditPostResponse>() {
-    override fun getRefreshKey(state: PagingState<String, SubRedditPostResponse>): String? =
+) : PagingSource<String, PostResponse>() {
+    override fun getRefreshKey(state: PagingState<String, PostResponse>): String? =
         state.anchorPosition?.let { state.closestItemToPosition(it)?.data?.id }
 
     override suspend fun load(
         params: LoadParams<String>
-    ): LoadResult<String, SubRedditPostResponse> =
+    ): LoadResult<String, PostResponse> =
         try {
             val response = endpoints.getPosts(params.key ?: "")
 

@@ -4,11 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class SubRedditPostsDataResponse(
+internal data class PostsDataResponse(
     @SerialName("dist")
     val itemsCount: Int,
     @SerialName("children")
-    val posts: List<SubRedditPostResponse>,
+    val posts: List<PostResponse>,
     @SerialName("before")
     val before: String?,
     @SerialName("after")

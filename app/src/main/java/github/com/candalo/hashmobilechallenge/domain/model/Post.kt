@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable as KSerializable
 import java.io.Serializable
 
 @KSerializable
-data class SubRedditPost(
+data class Post(
     val id: String,
     val title: String,
     val description: String,
@@ -12,5 +12,5 @@ data class SubRedditPost(
     val upvotesCount: Int,
     val commentsCount: Int,
     val publicationElapsedTime: String,
-    val media: SubRedditPostMedia
+    val media: PostMedia
 ) : Serializable

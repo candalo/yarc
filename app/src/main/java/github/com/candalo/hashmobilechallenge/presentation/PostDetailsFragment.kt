@@ -28,12 +28,12 @@ class PostDetailsFragment : Fragment() {
     }
 
     private fun populateScreen() {
-        binding.tvPostTitle.text = args.subRedditPost.title
-        binding.tvPostDescription.text = args.subRedditPost.description
-        binding.tvPostAuthor.text = args.subRedditPost.authorName
-        binding.tvPostUpvotesCount.text = args.subRedditPost.upvotesCount.toString()
-        binding.tvPostCommentsCount.text = args.subRedditPost.commentsCount.toString()
-        binding.tvPostCreationDate.text = args.subRedditPost.publicationElapsedTime
+        binding.tvPostTitle.text = args.post.title
+        binding.tvPostDescription.text = args.post.description
+        binding.tvPostAuthor.text = args.post.authorName
+        binding.tvPostUpvotesCount.text = args.post.upvotesCount.toString()
+        binding.tvPostCommentsCount.text = args.post.commentsCount.toString()
+        binding.tvPostCreationDate.text = args.post.publicationElapsedTime
     }
 
     override fun onDestroyView() {

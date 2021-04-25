@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 import java.time.Instant
 
 @Serializable
-internal data class SubRedditPostDataResponse(
+internal data class PostDataResponse(
     @SerialName("name")
     val id: String,
     @SerialName("title")
