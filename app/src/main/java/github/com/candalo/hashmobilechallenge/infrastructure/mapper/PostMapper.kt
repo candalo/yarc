@@ -6,19 +6,20 @@ import github.com.candalo.hashmobilechallenge.domain.model.PostMedia
 import github.com.candalo.hashmobilechallenge.infrastructure.model.PostResponse
 import github.com.candalo.hashmobilechallenge.presentation.extensions.toElapsedDate
 
-internal class PostMapper(private val context: Context) {
-    fun map(postResponse: PostResponse): Post =
+internal class PostMapper(private val context: Context) : Mapper<PostResponse, Post> {
+    override fun map(input: PostResponse): Post =
         Post(
-            postResponse.data.id,
-            postResponse.data.title,
-            postResponse.data.description,
-            postResponse.data.authorName,
-            postResponse.data.upvotesCount,
-            postResponse.data.commentsCount,
-            postResponse.data.timestamp.toElapsedDate(context),
+            input.data.id,
+            input.data.title,
+            input.data.description,
+            input.data.authorName,
+            input.data.upvotesCount,
+            input.data.commentsCount,
+            input.data.timestamp.toElapsedDate(context),
             PostMedia(
-                if (postResponse.data.thumbnailUrl == "self") null else postResponse.data.thumbnailUrl,
-                postResponse.data.mediaUrl
+                if (input.data.thumbnailUrl == "self") null else input.data.thumbnailUrl,
+                input.data.mediaUrl
             )
         )
+
 }

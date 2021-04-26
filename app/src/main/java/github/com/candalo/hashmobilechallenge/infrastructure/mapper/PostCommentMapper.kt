@@ -4,15 +4,15 @@ import github.com.candalo.hashmobilechallenge.domain.model.PostComment
 import github.com.candalo.hashmobilechallenge.domain.model.TreeNode
 import github.com.candalo.hashmobilechallenge.infrastructure.model.PostCommentDataResponse
 
-internal class PostCommentMapper {
-    fun map(postCommentDataResponse: PostCommentDataResponse): TreeNode<PostComment> =
+internal class PostCommentMapper : Mapper<PostCommentDataResponse, TreeNode<PostComment>> {
+    override fun map(input: PostCommentDataResponse): TreeNode<PostComment> =
         TreeNode(
-            PostComment(postCommentDataResponse.body, postCommentDataResponse.authorName)
+            PostComment(input.body, input.authorName)
         ).apply {
-            if (postCommentDataResponse.replies == null) {
+            if (input.replies == null) {
                 return this
             }
-            postCommentDataResponse.replies.data.postCommentsResponse.forEach {
+            input.replies.data.postCommentsResponse.forEach {
                 add(map(it.data))
             }
         }

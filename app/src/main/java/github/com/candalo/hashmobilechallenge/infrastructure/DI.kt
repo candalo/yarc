@@ -6,7 +6,9 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import github.com.candalo.hashmobilechallenge.domain.model.Post
 import github.com.candalo.hashmobilechallenge.infrastructure.api.Endpoints
 import github.com.candalo.hashmobilechallenge.infrastructure.datasource.PostPagingSource
+import github.com.candalo.hashmobilechallenge.infrastructure.mapper.Mapper
 import github.com.candalo.hashmobilechallenge.infrastructure.mapper.PostMapper
+import github.com.candalo.hashmobilechallenge.infrastructure.model.PostResponse
 import github.com.candalo.hashmobilechallenge.infrastructure.repository.PostRepository
 import github.com.candalo.hashmobilechallenge.presentation.PostsViewModel
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsAdapter
@@ -38,7 +40,7 @@ internal val infrastructure = module {
             pagingSourceFactory = { get<PostPagingSource>() }
         ).flow
     }
-    factory {
+    factory<Mapper<PostResponse, Post>>  {
         PostMapper(
             context = get()
         )
