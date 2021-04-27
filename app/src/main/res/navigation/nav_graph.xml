@@ -24,6 +24,6 @@
         tools:layout="@layout/fragment_post_details" >
         <argument
             android:name="post"
-            app:argType="github.com.candalo.hashmobilechallenge.domain.model.post" />
+            app:argType="github.com.candalo.hashmobilechallenge.domain.model.Post" />
     </fragment>
 </navigation>

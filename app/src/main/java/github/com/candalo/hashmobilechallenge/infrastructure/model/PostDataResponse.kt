@@ -22,6 +22,8 @@ internal data class PostDataResponse(
     @SerialName("created_utc")
     @Serializable(InstantSerializer::class)
     val timestamp: Instant,
+    @SerialName("permalink")
+    val permalink: String,
     @SerialName("thumbnail")
     val thumbnailUrl: String? = null,
     @SerialName("url_overridden_by_dest")

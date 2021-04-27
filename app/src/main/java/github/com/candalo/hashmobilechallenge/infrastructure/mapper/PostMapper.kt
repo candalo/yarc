@@ -16,6 +16,7 @@ internal class PostMapper(private val context: Context) : Mapper<PostResponse, P
             input.data.upvotesCount,
             input.data.commentsCount,
             input.data.timestamp.toElapsedDate(context),
+            input.data.permalink,
             PostMedia(
                 if (input.data.thumbnailUrl == "self") null else input.data.thumbnailUrl,
                 input.data.mediaUrl

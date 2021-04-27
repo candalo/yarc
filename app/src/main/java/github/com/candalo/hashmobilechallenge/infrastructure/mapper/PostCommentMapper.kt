@@ -7,7 +7,7 @@ import github.com.candalo.hashmobilechallenge.infrastructure.model.PostCommentDa
 internal class PostCommentMapper : Mapper<PostCommentDataResponse, TreeNode<PostComment>> {
     override fun map(input: PostCommentDataResponse): TreeNode<PostComment> =
         TreeNode(
-            PostComment(input.body, input.authorName)
+            PostComment(input.body ?: "", input.authorName)
         ).apply {
             if (input.replies == null) {
                 return this

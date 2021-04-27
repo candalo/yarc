@@ -12,5 +12,6 @@ data class Post(
     val upvotesCount: Int,
     val commentsCount: Int,
     val publicationElapsedTime: String,
+    val permalink: String,
     val media: PostMedia
 ) : Serializable

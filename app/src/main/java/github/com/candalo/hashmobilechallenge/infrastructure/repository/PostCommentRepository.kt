@@ -18,6 +18,7 @@ internal class PostCommentRepository(
         flowOf(
             endpoints
                 .getComments(endpointSanitizer.sanitize(postCommentPermalink))
+                .last()
                 .data
                 .postCommentsResponse
                 .map { mapper.map(it.data) }
