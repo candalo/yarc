@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import github.com.candalo.hashmobilechallenge.databinding.FragmentPostDetailsBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostDetailsFragment : Fragment() {
     private var _binding: FragmentPostDetailsBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: PostDetailsViewModel by viewModel()
     private val args: PostDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -25,15 +31,28 @@ class PostDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         populateScreen()
+        populateComments()
     }
 
     private fun populateScreen() {
+        if (args.post.media.mediaUrl != null) {
+            Glide
+                .with(requireContext())
+                .load(args.post.media.mediaUrl)
+                .into(binding.ivPostMedia)
+        }
         binding.tvPostTitle.text = args.post.title
         binding.tvPostDescription.text = args.post.description
         binding.tvPostAuthor.text = args.post.authorName
         binding.tvPostUpvotesCount.text = args.post.upvotesCount.toString()
         binding.tvPostCommentsCount.text = args.post.commentsCount.toString()
         binding.tvPostCreationDate.text = args.post.publicationElapsedTime
+    }
+
+    private fun populateComments() {
+        lifecycleScope.launch {
+            viewModel.fetchComments(args.post.permalink).collectLatest { }
+        }
     }
 
     override fun onDestroyView() {

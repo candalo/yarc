@@ -16,6 +16,7 @@ import github.com.candalo.hashmobilechallenge.infrastructure.model.PostResponse
 import github.com.candalo.hashmobilechallenge.infrastructure.repository.PostCommentRepository
 import github.com.candalo.hashmobilechallenge.infrastructure.repository.PostRepository
 import github.com.candalo.hashmobilechallenge.infrastructure.sanitizer.PostCommentEndpointSanitizer
+import github.com.candalo.hashmobilechallenge.infrastructure.sanitizer.PostImageSanitizer
 import github.com.candalo.hashmobilechallenge.infrastructure.sanitizer.Sanitizer
 import github.com.candalo.hashmobilechallenge.presentation.PostDetailsViewModel
 import github.com.candalo.hashmobilechallenge.presentation.PostsViewModel
@@ -62,11 +63,17 @@ internal val infrastructure = module {
             pagingSourceFactory = { get<PostPagingSource>() }
         ).flow
     }
+    factory<Sanitizer<String>>(
+        qualifier = named(PostImageSanitizer::class.java.simpleName)
+    ) {
+        PostImageSanitizer()
+    }
     factory<Mapper<PostResponse, Post>>(
         qualifier = named(PostMapper::class.java.simpleName)
     ) {
         PostMapper(
-            context = get()
+            context = get(),
+            imageSanitizer = get(qualifier = named(PostImageSanitizer::class.java.simpleName))
         )
     }
     factory {
@@ -80,13 +87,15 @@ internal val infrastructure = module {
     ) {
         PostCommentMapper()
     }
-    factory<Sanitizer<String>> {
+    factory<Sanitizer<String>>(
+        qualifier = named(PostCommentEndpointSanitizer::class.java.simpleName)
+    ) {
         PostCommentEndpointSanitizer()
     }
     factory {
         PostCommentRepository(
             endpoints = get(),
-            endpointSanitizer = get(),
+            endpointSanitizer = get(named(PostCommentEndpointSanitizer::class.java.simpleName)),
             mapper = get(qualifier = named(PostCommentMapper::class.java.simpleName))
         )
     }

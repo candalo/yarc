@@ -26,6 +26,6 @@ internal data class PostDataResponse(
     val permalink: String,
     @SerialName("thumbnail")
     val thumbnailUrl: String? = null,
-    @SerialName("url_overridden_by_dest")
-    val mediaUrl: String? = null
+    @SerialName("preview")
+    val preview: PostDataPreviewResponse? = null
 )
