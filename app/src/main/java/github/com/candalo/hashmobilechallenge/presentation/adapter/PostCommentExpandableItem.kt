@@ -19,6 +19,7 @@ internal class PostCommentExpandableItem(
 
     override fun setExpandableGroup(onToggleListener: ExpandableGroup) {
         expandableGroup = onToggleListener
+        expandableGroup?.onToggleExpanded()
     }
 
     override fun getLayout(): Int = R.layout.item_post_comment
