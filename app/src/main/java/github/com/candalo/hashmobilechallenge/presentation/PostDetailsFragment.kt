@@ -66,7 +66,8 @@ class PostDetailsFragment : Fragment() {
 
     private fun populateComments() {
         lifecycleScope.launch {
-            viewModel.fetchComments(args.post.permalink).collectLatest {
+            viewModel.fetchComments(args.post.permalink).observe(viewLifecycleOwner) {
+                binding.pbPostComments.hide()
                 groupAdapter.addAll(it.map(::PostCommentExpandableGroup))
             }
         }
