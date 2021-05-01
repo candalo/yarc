@@ -12,7 +12,6 @@ import github.com.candalo.hashmobilechallenge.databinding.FragmentPostsBinding
 import github.com.candalo.hashmobilechallenge.domain.model.Post
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsAdapter
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostsLoadStateAdapter
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -57,8 +56,10 @@ class PostsFragment : Fragment() {
     }
 
     private fun populatePosts() {
-        lifecycleScope.launch {
-            viewModel.fetchPosts().collectLatest { postsAdapter.submitData(it) }
+        viewModel.posts.observe(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                postsAdapter.submitData(it)
+            }
         }
     }
 
