@@ -85,7 +85,9 @@ internal val infrastructure = module {
     factory<Mapper<PostCommentDataResponse, TreeNode<PostComment>>>(
         qualifier = named(PostCommentMapper::class.java.simpleName)
     ) {
-        PostCommentMapper()
+        PostCommentMapper(
+            context = get()
+        )
     }
     factory<Sanitizer<String>>(
         qualifier = named(PostCommentEndpointSanitizer::class.java.simpleName)
