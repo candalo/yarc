@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="@id/ivPostCommentUpvotesCountIcon"
         tools:text="5h" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <github.com.candalo.hashmobilechallenge.presentation.customviews.MarkdownTextView
         android:id="@+id/tvPostCommentBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
