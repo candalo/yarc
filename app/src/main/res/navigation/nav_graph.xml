@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/postsFragment"
-        android:name="github.com.candalo.hashmobilechallenge.presentation.PostsFragment"
+        android:name="github.com.candalo.yarc.presentation.PostsFragment"
         android:label="@string/posts_label"
         tools:layout="@layout/fragment_posts">
         <action
@@ -15,17 +15,17 @@
             app:destination="@id/postDetailsFragment">
             <argument
                 android:name="post"
-                app:argType="github.com.candalo.hashmobilechallenge.domain.model.Post" />
+                app:argType="github.com.candalo.yarc.domain.model.Post" />
         </action>
     </fragment>
 
     <fragment
         android:id="@+id/postDetailsFragment"
-        android:name="github.com.candalo.hashmobilechallenge.presentation.PostDetailsFragment"
+        android:name="github.com.candalo.yarc.presentation.PostDetailsFragment"
         android:label="@string/post_details_label"
         tools:layout="@layout/fragment_post_details" >
         <argument
             android:name="post"
-            app:argType="github.com.candalo.hashmobilechallenge.domain.model.Post" />
+            app:argType="github.com.candalo.yarc.domain.model.Post" />
     </fragment>
 </navigation>
