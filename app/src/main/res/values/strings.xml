@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hash Mobile Challenge</string>
+    <string name="app_name">Yet Another Reddit Client</string>
     <string name="post_creation_date_minutes_interval">%sm</string>
     <string name="post_creation_date_hours_interval">%sh</string>
     <string name="post_creation_date_days_interval">%sd</string>
@@ -7,4 +7,6 @@
     <string name="post_comment_example">Something that still is unanswered to me is that does Jetpack Compose gonna deprecate Activities/Fragments/XML?</string>
     <string name="post_empty_state">Ops, parece que nenhum post foi encontrado…</string>
     <string name="post_error_state">Ops, parece que ocorreu um erro</string>
+    <string name="posts_label">Posts</string>
+    <string name="post_details_label">Post Details</string>
 </resources>

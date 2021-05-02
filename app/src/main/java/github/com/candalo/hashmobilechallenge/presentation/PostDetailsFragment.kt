@@ -13,7 +13,6 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import github.com.candalo.hashmobilechallenge.databinding.FragmentPostDetailsBinding
 import github.com.candalo.hashmobilechallenge.presentation.adapter.PostCommentExpandableGroup
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
