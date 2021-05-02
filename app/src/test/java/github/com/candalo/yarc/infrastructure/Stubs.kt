@@ -1,5 +1,8 @@
 package github.com.candalo.yarc.infrastructure
 
+import github.com.candalo.yarc.domain.model.Post
+import github.com.candalo.yarc.domain.model.PostComment
+import github.com.candalo.yarc.domain.model.PostMedia
 import github.com.candalo.yarc.infrastructure.model.*
 import java.time.Instant
 
@@ -11,6 +14,13 @@ internal val postCommentDataResponse = PostCommentDataResponse(
     100,
     instant,
     null
+)
+
+internal val postComment = PostComment(
+    "Hello darkness my old friend",
+    "candalo",
+    100,
+    "1h",
 )
 
 internal val postCommentDataResponseWithReplies = postCommentDataResponse.copy(
@@ -31,6 +41,13 @@ internal val postCommentDataResponseWithReplies = postCommentDataResponse.copy(
     )
 )
 
+internal val postCommentReply = PostComment(
+    "I've come to talk with you again",
+    "oladnac",
+    50,
+    "1h",
+)
+
 internal val postResponse = PostResponse(
     PostDataResponse(
         "1",
@@ -44,6 +61,18 @@ internal val postResponse = PostResponse(
         null,
         null
     )
+)
+
+internal val post = Post(
+    "1",
+    "Android Studio is buggy",
+    "Android Studio is very very buggy",
+    "candalo",
+    1000,
+    100,
+    "1h",
+    "permalink",
+    PostMedia(null, null)
 )
 
 internal val postResponseWithThumbnailUrl = postResponse.copy(
@@ -61,6 +90,19 @@ internal val postResponseWithImagePreview = postResponse.copy(
                         "https://www.imageUrl123.com/"
                     )
                 )
+            )
+        )
+    )
+)
+
+internal val postDetailsResponse = PostDetailsResponse(
+    PostDetailsDataResponse(
+        listOf(
+            PostCommentResponse(
+                postCommentDataResponse
+            ),
+            PostCommentResponse(
+                postCommentDataResponseWithReplies
             )
         )
     )
