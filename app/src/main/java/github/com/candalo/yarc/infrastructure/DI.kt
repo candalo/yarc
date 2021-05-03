@@ -24,6 +24,7 @@ import github.com.candalo.yarc.presentation.adapter.PostsAdapter
 import github.com.candalo.yarc.presentation.adapter.PostsLoadStateAdapter
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -47,7 +48,7 @@ internal val infrastructure = module {
                 Json {
                     ignoreUnknownKeys = true
                 }.asConverterFactory(
-                    MediaType.get("application/json")
+                    "application/json".toMediaType()
                 )
             )
             .client(get())
