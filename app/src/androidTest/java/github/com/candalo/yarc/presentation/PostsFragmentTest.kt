@@ -13,6 +13,7 @@ import com.google.common.truth.Truth.assertThat
 import github.com.candalo.yarc.R
 import github.com.candalo.yarc.presentation.adapter.PostsViewHolder
 import github.com.candalo.yarc.testInfrastructure
+import github.com.candalo.yarc.waitItems
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -53,7 +54,7 @@ internal class PostsFragmentTest : KoinTest {
     }
 
     @Test
-    fun whenClickOnPostShouldOpenPostDetailsScreen() {
+    fun postDetailsScreenShouldBeOpenWhenClickOnPost() {
         val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
 
         mockSuccessfullyResponse()
@@ -73,10 +74,5 @@ internal class PostsFragmentTest : KoinTest {
         val inputStream = javaClass.classLoader?.getResourceAsStream("posts.json")
         val jsonResponse = Scanner(inputStream).useDelimiter("\\A").next()
         mockWebServer.enqueue(MockResponse().setBody(jsonResponse).setResponseCode(200))
-    }
-
-    private fun waitItems() {
-        // Handle this situation with an idling resource
-        Thread.sleep(1000)
     }
 }
