@@ -1,36 +1,26 @@
 package github.com.candalo.yarc.presentation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import github.com.candalo.yarc.R
 import github.com.candalo.yarc.databinding.FragmentPostDetailsBinding
 import github.com.candalo.yarc.presentation.adapter.PostCommentExpandableGroup
 import github.com.candalo.yarc.presentation.extensions.loadImage
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PostDetailsFragment : Fragment() {
-    private var _binding: FragmentPostDetailsBinding? = null
-    private val binding get() = _binding!!
+class PostDetailsFragment : Fragment(R.layout.fragment_post_details) {
+    private val binding: FragmentPostDetailsBinding by viewBinding()
     private val viewModel: PostDetailsViewModel by viewModel()
     private val args: PostDetailsFragmentArgs by navArgs()
     private val groupAdapter = GroupAdapter<GroupieViewHolder>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentPostDetailsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,10 +57,5 @@ class PostDetailsFragment : Fragment() {
                 groupAdapter.addAll(it.map(::PostCommentExpandableGroup))
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
