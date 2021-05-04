@@ -17,7 +17,6 @@ internal class YarcTestApplication : YarcApplication() {
             androidContext(this@YarcTestApplication)
             modules(
                 infrastructure,
-                testInfrastructure,
                 presentation
             )
         }

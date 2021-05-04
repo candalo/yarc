@@ -9,11 +9,11 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 internal val testInfrastructure = module(override = true) {
-    single(override = true) {
+    single {
         MockWebServer()
     }
 
-    single(override = true) {
+    single {
         Retrofit.Builder()
             .baseUrl(get<MockWebServer>().url("").toString())
             .addConverterFactory(
