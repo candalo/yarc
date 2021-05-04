@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import github.com.candalo.yarc.R
 import github.com.candalo.yarc.databinding.ItemPostBinding
 import github.com.candalo.yarc.domain.model.Post
+import github.com.candalo.yarc.presentation.extensions.loadImage
 
 internal class PostsAdapter(
     private val onPostSelected: (Post) -> Unit
@@ -38,10 +39,7 @@ internal class PostsViewHolder(
     private fun Post.populateItemData() {
         with(binding) {
             if (this@populateItemData.media.thumbnailUrl != null) {
-                Glide
-                    .with(parent.context)
-                    .load(this@populateItemData.media.thumbnailUrl)
-                    .into(ivPostMediaThumbnail)
+                ivPostMediaThumbnail.loadImage(parent.context, this@populateItemData.media.thumbnailUrl)
             } else {
                 ivPostMediaThumbnail.setImageResource(R.drawable.outline_article_24)
             }
