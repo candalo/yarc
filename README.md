@@ -4,6 +4,15 @@ yarc (yet another reddit client) is a simple Android app created to showcase som
 The app contains two screens: the first screen contains a list of posts from the [android community](https://www.reddit.com/r/androiddev/) subreddit
 and the second contains the selected post details.
 
+# Showcase
+
+## Light theme
+https://user-images.githubusercontent.com/11521746/117085938-90374780-ad21-11eb-8101-a78d7cb1746a.mp4
+
+## Dark theme
+https://user-images.githubusercontent.com/11521746/117085970-a5ac7180-ad21-11eb-8f67-73b0ab2ccac6.mp4
+
+
 # Language and libraries used
 - Kotlin
 - Android Support
