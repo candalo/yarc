@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yet Another Reddit Client</string>
+    <string name="app_name">yarc</string>
     <string name="post_creation_date_minutes_interval">%sm</string>
     <string name="post_creation_date_hours_interval">%sh</string>
     <string name="post_creation_date_days_interval">%sd</string>

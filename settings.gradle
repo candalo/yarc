@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Yet Another Reddit Client"
+rootProject.name = "yarc"
 
-include ':app'
+include(":app", ":features:posts")
