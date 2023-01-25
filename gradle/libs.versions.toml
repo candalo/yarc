@@ -25,6 +25,8 @@ retrofit = "2.9.0"
 test-core = "1.5.0"
 test-junit = "1.1.5"
 truth = "1.1.2"
+versions = "0.41.0"
+version-catalog-update = "0.7.0"
 viewbinding-property-delegate = "1.4.4"
 
 [libraries]
@@ -70,3 +72,5 @@ junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" 
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization-plugin" }
 navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
