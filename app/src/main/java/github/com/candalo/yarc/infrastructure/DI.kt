@@ -22,8 +22,8 @@ import github.com.candalo.yarc.presentation.PostDetailsViewModel
 import github.com.candalo.yarc.presentation.PostsViewModel
 import github.com.candalo.yarc.presentation.adapter.PostsAdapter
 import github.com.candalo.yarc.presentation.adapter.PostsLoadStateAdapter
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,6 +32,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
+@OptIn(ExperimentalSerializationApi::class)
 internal val infrastructure = module {
     single {
         OkHttpClient

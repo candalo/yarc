@@ -63,9 +63,7 @@ dependencies {
     implementation libs.retrofit
     implementation libs.viewbinding.propertydelegate
 
-    debugImplementation (libs.fragment.test) {
-        exclude group: "androidx.test", module : "core"
-    }
+    debugImplementation (libs.fragment.test)
 
     testImplementation libs.coroutines.test
     testImplementation libs.junit.api
@@ -80,5 +78,4 @@ dependencies {
     androidTestImplementation libs.test.core
     androidTestImplementation libs.test.junit
     androidTestImplementation libs.truth
-
 }
