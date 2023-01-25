@@ -2,18 +2,19 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'de.mannodermaus.android-junit5'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.30'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    namespace "github.com.candalo.yarc"
+    compileSdkVersion 33
+    buildToolsVersion "33.0.1"
 
     defaultConfig {
         applicationId "github.com.candalo.yarc"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 28
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -33,12 +34,12 @@ android {
 
     compileOptions {
         coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 
@@ -65,7 +66,9 @@ dependencies {
     implementation Libs.groupieViewBinding
     implementation Libs.markon
     implementation Libs.viewBindingPropertyDelegate
-    debugImplementation Libs.fragmentTest
+    debugImplementation (Libs.fragmentTest) {
+        exclude group: "androidx.test", module : "core"
+    }
     testImplementation Libs.coroutinesTest
     testImplementation Libs.mockk
     testImplementation Libs.truth

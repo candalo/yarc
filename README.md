@@ -30,7 +30,7 @@ and the second contains the selected post details.
 
 # Architecture
 
-The application follow [Google's recommended architecture](https://developer.android.com/jetpack/guide). The main reason to follow this model instead of [Uncle Bob's
+The application follows [Google's recommended architecture](https://developer.android.com/jetpack/guide). The main reason to follow this model instead of [Uncle Bob's
 Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) is to avoid some unnecessary complexity from adding a domain layer, 
 which doesn't make sense in this application context, for two reasons:
 
@@ -40,9 +40,9 @@ which doesn't make sense in this application context, for two reasons:
 
 # Requirements
 
-- JDK 1.8
+- JDK 11
 - Android SDK
-- Android 5.0 or greater
+- Android 9 or greater
 
 
 # Setup
