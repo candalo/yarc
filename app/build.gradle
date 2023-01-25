@@ -1,9 +1,9 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'de.mannodermaus.android-junit5'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
-    id 'androidx.navigation.safeargs.kotlin'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.junit5)
 }
 
 android {
@@ -33,7 +33,6 @@ android {
     }
 
     compileOptions {
-        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
@@ -44,42 +43,42 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring Libs.desugar
-    implementation Libs.kotlinStd
-    implementation Libs.coreKtx
-    implementation Libs.appCompat
-    implementation Libs.material
-    implementation Libs.okhttp
-    implementation Libs.okHttpInterceptor
-    implementation Libs.retrofit
-    implementation Libs.koin
-    implementation Libs.kotlinSerialization
-    implementation Libs.kotlinSerializationConverter
-    implementation Libs.coroutinesCore
-    implementation Libs.coroutinesAndroid
-    implementation Libs.paging
-    implementation Libs.glide
-    annotationProcessor Libs.glideCompiler
-    implementation Libs.navigation
-    implementation Libs.navigationFragment
-    implementation Libs.groupie
-    implementation Libs.groupieViewBinding
-    implementation Libs.markon
-    implementation Libs.viewBindingPropertyDelegate
-    debugImplementation (Libs.fragmentTest) {
+    implementation libs.appcompat
+    implementation libs.core.ktx
+    implementation libs.coroutines.android
+    implementation libs.glide
+    annotationProcessor libs.glide.compiler
+    implementation libs.groupie
+    implementation libs.groupie.viewbinding
+    implementation libs.koin.android
+    implementation libs.kotlin.serialization
+    implementation libs.kotlin.serialization.converter
+    implementation libs.markon
+    implementation libs.material
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
+    implementation libs.okhttp
+    implementation libs.okhttp.interceptor
+    implementation libs.paging
+    implementation libs.retrofit
+    implementation libs.viewbinding.propertydelegate
+
+    debugImplementation (libs.fragment.test) {
         exclude group: "androidx.test", module : "core"
     }
-    testImplementation Libs.coroutinesTest
-    testImplementation Libs.mockk
-    testImplementation Libs.truth
-    testImplementation Libs.junit5Api
-    testRuntimeOnly Libs.junit5Engine
-    androidTestImplementation Libs.testCore
-    androidTestImplementation Libs.truth
-    androidTestImplementation Libs.mockWebServer
-    androidTestImplementation Libs.koinTest
-    androidTestImplementation Libs.junit
-    androidTestImplementation Libs.espresso
-    androidTestImplementation Libs.espressoContrib
-    androidTestImplementation Libs.navigationTest
+
+    testImplementation libs.coroutines.test
+    testImplementation libs.junit.api
+    testImplementation libs.mockk
+    testImplementation libs.truth
+    testRuntimeOnly libs.junit.engine
+    androidTestImplementation libs.espresso.contrib
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.koin.test
+    androidTestImplementation libs.mock.webserver
+    androidTestImplementation libs.navigation.testing
+    androidTestImplementation libs.test.core
+    androidTestImplementation libs.test.junit
+    androidTestImplementation libs.truth
+
 }
