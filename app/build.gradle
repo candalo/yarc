@@ -8,15 +8,15 @@ plugins {
 
 android {
     namespace "github.com.candalo.yarc"
-    compileSdkVersion 33
-    buildToolsVersion "33.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "github.com.candalo.yarc"
-        minSdkVersion 28
-        targetSdkVersion 33
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "github.com.candalo.yarc.MockTestRunner"
     }
