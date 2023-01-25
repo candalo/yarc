@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@id/ivPostMedia"
             tools:text="Another shout of frustration from the Google apps" />
 
-        <github.com.candalo.yarc.presentation.customviews.MarkdownTextView
+        <com.github.candalo.yarc.presentation.customviews.MarkdownTextView
             android:id="@+id/tvPostDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

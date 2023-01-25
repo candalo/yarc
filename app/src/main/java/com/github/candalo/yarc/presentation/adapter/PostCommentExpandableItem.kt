@@ -1,0 +1,66 @@
+package com.github.candalo.yarc.presentation.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import androidx.core.view.isVisible
+import com.xwray.groupie.ExpandableGroup
+import com.xwray.groupie.ExpandableItem
+import com.xwray.groupie.viewbinding.BindableItem
+import com.github.candalo.yarc.R
+import com.github.candalo.yarc.databinding.ItemPostCommentBinding
+import com.github.candalo.yarc.domain.model.PostComment
+import com.github.candalo.yarc.domain.model.TreeNode
+
+internal class PostCommentExpandableItem(
+    private val commentTree: TreeNode<PostComment>,
+    private val depth: Int
+) : BindableItem<ItemPostCommentBinding>(), ExpandableItem {
+    private var expandableGroup: ExpandableGroup? = null
+
+    override fun setExpandableGroup(onToggleListener: ExpandableGroup) {
+        expandableGroup = onToggleListener
+        expandableGroup?.onToggleExpanded()
+    }
+
+    override fun getLayout(): Int = R.layout.item_post_comment
+
+    override fun initializeViewBinding(view: View): ItemPostCommentBinding =
+        ItemPostCommentBinding.bind(view)
+
+    override fun bind(viewBinding: ItemPostCommentBinding, position: Int) {
+        handleViewSeparator(viewBinding)
+        populateItem(viewBinding)
+    }
+
+    private fun handleViewSeparator(viewBinding: ItemPostCommentBinding) {
+        handleViewSeparatorVisibility(viewBinding)
+        handleViewSeparatorInflate(viewBinding)
+    }
+
+    private fun handleViewSeparatorVisibility(viewBinding: ItemPostCommentBinding) {
+        with(viewBinding.viewSeparator) {
+            removeAllViews()
+            isVisible = depth > 0
+        }
+    }
+
+    private fun handleViewSeparatorInflate(viewBinding: ItemPostCommentBinding) {
+        repeat(depth) {
+            val view = LayoutInflater
+                .from(viewBinding.root.context)
+                .inflate(R.layout.view_separator, viewBinding.viewSeparator, false)
+
+            viewBinding.viewSeparator.addView(view)
+        }
+    }
+
+    private fun populateItem(viewBinding: ItemPostCommentBinding) {
+        with(viewBinding) {
+            tvPostCommentAuthor.text = commentTree.value.authorName
+            tvPostCommentUpvotesCount.text = commentTree.value.upvotesCount.toString()
+            tvPostCommentCreationDate.text = commentTree.value.publicationElapsedTime
+            tvPostCommentBody.text = commentTree.value.body
+            root.setOnClickListener { expandableGroup?.onToggleExpanded() }
+        }
+    }
+}

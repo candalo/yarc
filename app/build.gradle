@@ -7,18 +7,18 @@ plugins {
 }
 
 android {
-    namespace "github.com.candalo.yarc"
+    namespace "com.github.candalo.yarc"
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "github.com.candalo.yarc"
+        applicationId "com.github.candalo.yarc"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "github.com.candalo.yarc.MockTestRunner"
+        testInstrumentationRunner "com.github.candalo.yarc.MockTestRunner"
     }
 
     buildFeatures {
@@ -63,7 +63,9 @@ dependencies {
     implementation libs.retrofit
     implementation libs.viewbinding.propertydelegate
 
-    debugImplementation (libs.fragment.test)
+    debugImplementation (libs.fragment.test) {
+        exclude group: "androidx.test", module : "core"
+    }
 
     testImplementation libs.coroutines.test
     testImplementation libs.junit.api
