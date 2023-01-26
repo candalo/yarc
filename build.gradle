@@ -18,3 +18,4 @@ ext {
 }
 
 apply from: "$rootDir/gradle/dependency-update-rule.gradle"
+apply from: "$rootDir/gradle/local-modules.gradle"
