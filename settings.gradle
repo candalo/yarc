@@ -17,4 +17,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "yarc"
 
-include(":app", ":features:posts")
+include(":app", ":infrastructure", ":features:posts")

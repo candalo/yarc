@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kapt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.navigation.safeargs)
@@ -47,7 +48,7 @@ dependencies {
     implementation libs.core.ktx
     implementation libs.coroutines.android
     implementation libs.glide
-    annotationProcessor libs.glide.compiler
+    kapt libs.glide.compiler
     implementation libs.groupie
     implementation libs.groupie.viewbinding
     implementation libs.koin.android

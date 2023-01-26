@@ -7,8 +7,10 @@ fragment-test = "1.5.5"
 glide = "4.14.2"
 gradle-plugin = "7.4.0"
 groupie = "2.10.1"
+hilt = "2.44"
 junit = "5.9.2"
 junit5-plugin = "1.8.2.1"
+kapt = "1.8.0"
 koin = "3.3.2"
 kotlin = "1.8.0"
 kotlin-serialization = "1.4.1"
@@ -42,6 +44,8 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 groupie = { module = "com.github.lisawray.groupie:groupie", version.ref = "groupie" }
 groupie-viewbinding = { module = "com.github.lisawray.groupie:groupie-viewbinding", version.ref = "groupie" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
@@ -68,7 +72,9 @@ viewbinding-propertydelegate = { module = "com.github.kirich1409:viewbindingprop
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "gradle-plugin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization-plugin" }
 navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
