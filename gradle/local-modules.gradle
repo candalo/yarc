@@ -1,3 +1,4 @@
 ext {
+    converter = ":converter"
     infrastructureModule = ":infrastructure"
 }

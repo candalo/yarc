@@ -76,6 +76,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization-plugin" }
 navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
 version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }

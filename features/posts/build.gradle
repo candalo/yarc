@@ -17,10 +17,12 @@ kapt {
 }
 
 dependencies {
+    implementation project(rootProject.ext.converter)
     implementation project(rootProject.ext.infrastructureModule)
     implementation libs.core.ktx
     implementation libs.hilt.android
     kapt libs.hilt.compiler
     implementation libs.kotlin.serialization
+    implementation libs.paging
     implementation libs.retrofit
 }
