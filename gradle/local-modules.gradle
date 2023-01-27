@@ -1,4 +1,5 @@
 ext {
-    converter = ":converter"
+    converterModule = ":converter"
     infrastructureModule = ":infrastructure"
+    featurePostsModule = ":features:posts"
 }

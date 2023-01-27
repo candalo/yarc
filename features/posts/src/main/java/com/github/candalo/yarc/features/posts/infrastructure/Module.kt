@@ -28,12 +28,12 @@ internal object ServiceModule {
 @InstallIn(ViewModelComponent::class)
 internal abstract class MapperModule {
     @Binds
-    abstract fun bindMapper(
-        postMapper: PostMapper
-    ): Mapper<PostResponse, Post>
-
-    @Binds
     abstract fun bindSanitizer(
         postsSanitizer: PostImageSanitizer
     ): Sanitizer<String>
+
+    @Binds
+    abstract fun bindMapper(
+        postMapper: PostMapper
+    ): Mapper<PostResponse, Post>
 }

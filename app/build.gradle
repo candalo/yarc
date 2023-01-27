@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.kapt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
@@ -24,6 +25,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
     }
 
     buildTypes {
@@ -41,16 +43,26 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.kotlin.compiler.extensions.get()
+    }
 }
 
 dependencies {
+    implementation project(rootProject.ext.featurePostsModule)
+    implementation libs.activity.compose
     implementation libs.appcompat
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.material3)
     implementation libs.core.ktx
     implementation libs.coroutines.android
     implementation libs.glide
     kapt libs.glide.compiler
     implementation libs.groupie
     implementation libs.groupie.viewbinding
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
     implementation libs.koin.android
     implementation libs.kotlin.serialization
     implementation libs.kotlin.serialization.converter
