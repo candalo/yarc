@@ -1,9 +1,9 @@
-package com.github.candalo.yarc.infrastructure.serializer
+package com.github.candalo.yarc.features.posts.infrastructure.serializer
 
+import com.github.candalo.yarc.features.posts.infrastructure.model.PostDetailsResponse
+import com.github.candalo.yarc.features.posts.infrastructure.postCommentRepliesJson
+import com.github.candalo.yarc.features.posts.infrastructure.postDetailsResponse
 import com.google.common.truth.Truth.assertThat
-import com.github.candalo.yarc.infrastructure.model.PostDetailsResponse
-import com.github.candalo.yarc.infrastructure.postCommentRepliesJson
-import com.github.candalo.yarc.infrastructure.postDetailsResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString

@@ -1,26 +1,20 @@
-package com.github.candalo.yarc.infrastructure.mapper
+package com.github.candalo.yarc.features.posts.infrastructure.mapper
 
-import android.content.Context
+import com.github.candalo.yarc.converter.Sanitizer
+import com.github.candalo.yarc.features.posts.infrastructure.postResponse
+import com.github.candalo.yarc.features.posts.infrastructure.postResponseWithImagePreview
+import com.github.candalo.yarc.features.posts.infrastructure.postResponseWithThumbnailUrl
 import com.google.common.truth.Truth.assertThat
-import com.github.candalo.yarc.infrastructure.instant
-import com.github.candalo.yarc.infrastructure.postResponse
-import com.github.candalo.yarc.infrastructure.postResponseWithImagePreview
-import com.github.candalo.yarc.infrastructure.postResponseWithThumbnailUrl
-import com.github.candalo.yarc.infrastructure.sanitizer.Sanitizer
-import com.github.candalo.yarc.presentation.extensions.toElapsedDate
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
 
 internal class PostMapperTest {
-    private val context = mockk<Context>()
     private val imageSanitizer = mockk<Sanitizer<String>>()
 
     @Test
     fun `map should convert PostResponse to Post`() {
-        every { instant.toElapsedDate(context) } returns "1h"
-
-        val post = PostMapper(context, imageSanitizer).map(postResponse)
+        val post = PostMapper(imageSanitizer).map(postResponse)
 
         assertThat(post.id).isEqualTo("1")
         assertThat(post.title).isEqualTo("Android Studio is buggy")
@@ -36,9 +30,7 @@ internal class PostMapperTest {
 
     @Test
     fun `map should convert PostResponse with thumbnail url to Post`() {
-        every { instant.toElapsedDate(context) } returns "1h"
-
-        val post = PostMapper(context, imageSanitizer).map(postResponseWithThumbnailUrl)
+        val post = PostMapper(imageSanitizer).map(postResponseWithThumbnailUrl)
 
         assertThat(post.id).isEqualTo("1")
         assertThat(post.title).isEqualTo("Android Studio is buggy")
@@ -54,10 +46,9 @@ internal class PostMapperTest {
 
     @Test
     fun `map should convert PostResponse with image preview to Post`() {
-        every { instant.toElapsedDate(context) } returns "1h"
         every { imageSanitizer.sanitize("https://www.imageUrl123.com/") } returns "https://www.imageUrl.com/"
 
-        val post = PostMapper(context, imageSanitizer).map(postResponseWithImagePreview)
+        val post = PostMapper(imageSanitizer).map(postResponseWithImagePreview)
 
         assertThat(post.id).isEqualTo("1")
         assertThat(post.title).isEqualTo("Android Studio is buggy")

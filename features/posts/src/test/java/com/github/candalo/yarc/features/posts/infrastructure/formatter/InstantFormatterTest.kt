@@ -1,14 +1,12 @@
-package com.github.candalo.yarc.presentation.formatter
+package com.github.candalo.yarc.features.posts.infrastructure.formatter
 
-import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.time.Duration
 import java.time.Instant
 
 internal class InstantFormatterTest {
-    private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private val formatter = InstantFormatter(context)
+    private val formatter = InstantFormatter()
 
     @Test
     fun formatShouldReturnCorrectElapsedTimeWhenDurationIsLessThanSixtyMinutes() {

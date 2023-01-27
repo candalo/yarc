@@ -18,6 +18,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.kotlin.compiler.extensions.get()
     }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 kapt {
@@ -36,4 +42,10 @@ dependencies {
     implementation libs.kotlin.serialization
     implementation libs.paging
     implementation libs.retrofit
+
+    testImplementation libs.coroutines.test
+    testImplementation libs.junit.api
+    testRuntimeOnly libs.junit.engine
+    testImplementation libs.mockk
+    testImplementation libs.truth
 }

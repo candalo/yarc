@@ -1,4 +1,4 @@
-package com.github.candalo.yarc.infrastructure.serializer
+package com.github.candalo.yarc.features.posts.infrastructure.serializer
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.SerialName

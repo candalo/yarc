@@ -16,7 +16,7 @@ internal class InstantFormatter {
 
         return when {
             duration.toMinutes() < MINUTES -> "${duration.toMinutes()}m"
-            duration.toHours() < HOURS -> "${duration.toMinutes()}h"
+            duration.toHours() < HOURS -> "${duration.toHours()}h"
             else -> "${duration.toDays()}d"
         }
     }

@@ -1,4 +1,4 @@
-package com.github.candalo.yarc.infrastructure.sanitizer
+package com.github.candalo.yarc.features.posts.infrastructure.sanitizer
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.Test

@@ -1,23 +1,14 @@
-package com.github.candalo.yarc.infrastructure.mapper
+package com.github.candalo.yarc.features.posts.infrastructure.mapper
 
-import android.content.Context
+import com.github.candalo.yarc.features.posts.infrastructure.postCommentDataResponse
+import com.github.candalo.yarc.features.posts.infrastructure.postCommentDataResponseWithReplies
 import com.google.common.truth.Truth.assertThat
-import com.github.candalo.yarc.infrastructure.instant
-import com.github.candalo.yarc.infrastructure.postCommentDataResponse
-import com.github.candalo.yarc.infrastructure.postCommentDataResponseWithReplies
-import com.github.candalo.yarc.presentation.extensions.toElapsedDate
-import io.mockk.every
-import io.mockk.mockk
 import org.junit.jupiter.api.Test
 
 internal class PostCommentMapperTest {
-    private val context = mockk<Context>()
-
     @Test
     fun `map should convert PostCommentDataResponse to TreeNode PostComment`() {
-        every { instant.toElapsedDate(context) } returns "1h"
-
-        val postCommentTreeNode = PostCommentMapper(context).map(postCommentDataResponse)
+        val postCommentTreeNode = PostCommentMapper().map(postCommentDataResponse)
 
         assertThat(postCommentTreeNode.value.body).isEqualTo("Hello darkness my old friend")
         assertThat(postCommentTreeNode.value.authorName).isEqualTo("candalo")
@@ -28,9 +19,7 @@ internal class PostCommentMapperTest {
 
     @Test
     fun `map should convert PostCommentDataResponse with children to TreeNode PostComment`() {
-        every { instant.toElapsedDate(context) } returns "1h"
-
-        val postCommentTreeNode = PostCommentMapper(context).map(postCommentDataResponseWithReplies)
+        val postCommentTreeNode = PostCommentMapper().map(postCommentDataResponseWithReplies)
 
         assertThat(postCommentTreeNode.value.body).isEqualTo("Hello darkness my old friend")
         assertThat(postCommentTreeNode.value.authorName).isEqualTo("candalo")
