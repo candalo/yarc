@@ -33,14 +33,19 @@ kapt {
 dependencies {
     implementation project(rootProject.ext.converterModule)
     implementation project(rootProject.ext.infrastructureModule)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.material3)
+    implementation libs.coil.compose
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.icons.ext
+    implementation libs.compose.material3
+    implementation libs.compose.ui.tooling
+    implementation libs.constraint.layout.compose
     implementation libs.core.ktx
     implementation libs.hilt.android
     implementation libs.hilt.nav.compose
     kapt libs.hilt.compiler
     implementation libs.kotlin.serialization
     implementation libs.paging
+    implementation libs.paging.compose
     implementation libs.retrofit
 
     testImplementation libs.coroutines.test

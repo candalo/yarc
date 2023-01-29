@@ -2,8 +2,10 @@ package com.github.candalo.yarc.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.runtime.Composable
 
 
@@ -72,6 +74,26 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+private fun Typography.defaultFontFamily(fontFamily: FontFamily): Typography {
+    return this.copy(
+        displayLarge = this.displayLarge.copy(fontFamily = fontFamily),
+        displayMedium = this.displayMedium.copy(fontFamily = fontFamily),
+        displaySmall = this.displaySmall.copy(fontFamily = fontFamily),
+        headlineLarge = this.headlineLarge.copy(fontFamily = fontFamily),
+        headlineMedium = this.headlineMedium.copy(fontFamily = fontFamily),
+        headlineSmall = this.headlineSmall.copy(fontFamily = fontFamily),
+        titleLarge = this.titleLarge.copy(fontFamily = fontFamily),
+        titleMedium = this.titleMedium.copy(fontFamily = fontFamily),
+        titleSmall = this.titleSmall.copy(fontFamily = fontFamily),
+        bodyLarge = this.bodyLarge.copy(fontFamily = fontFamily),
+        bodyMedium = this.bodyMedium.copy(fontFamily = fontFamily),
+        bodySmall = this.bodySmall.copy(fontFamily = fontFamily),
+        labelLarge = this.labelLarge.copy(fontFamily = fontFamily),
+        labelMedium = this.labelMedium.copy(fontFamily = fontFamily),
+        labelSmall = this.labelSmall.copy(fontFamily = fontFamily)
+    )
+}
+
 @Composable
 fun YarcTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
@@ -85,6 +107,7 @@ fun YarcTheme(
 
     MaterialTheme(
         colorScheme = colors,
+        typography = Typography().defaultFontFamily(firaSansFamily),
         content = content
     )
 }

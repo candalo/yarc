@@ -9,4 +9,6 @@
     <string name="post_error_state">Ops, parece que ocorreu um erro</string>
     <string name="posts_label">Posts</string>
     <string name="post_details_label">Post Details</string>
+
+    <string name="nav_bar_posts">Posts</string>
 </resources>
