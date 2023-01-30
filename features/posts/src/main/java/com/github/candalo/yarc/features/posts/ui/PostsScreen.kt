@@ -1,8 +1,12 @@
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+
 package com.github.candalo.yarc.features.posts.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Forum
@@ -10,12 +14,20 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -30,27 +42,64 @@ import com.github.candalo.yarc.features.posts.domain.model.Post
 
 @Composable
 fun PostsScreen(modifier: Modifier = Modifier) {
-    Posts(modifier)
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Spacer(Modifier.size(8.dp))
+        Search()
+        Posts()
+    }
+}
+
+@Composable
+private fun Search(
+    modifier: Modifier = Modifier,
+    viewModel: PostsViewModel = hiltViewModel(),
+) {
+    var text by rememberSaveable { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    OutlinedTextField(
+        value = text,
+        onValueChange = { text = it },
+        label = { Text("Search subreddits") },
+        maxLines = 1,
+        modifier = modifier.fillMaxWidth(),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                viewModel.updateSubreddit(text)
+                keyboardController?.hide()
+            }
+        )
+    )
 }
 
 @Composable
 private fun Posts(
     modifier: Modifier = Modifier,
-    viewModel: PostsViewModel = hiltViewModel()
+    viewModel: PostsViewModel = hiltViewModel(),
 ) {
-    val posts = viewModel.getPosts().collectAsLazyPagingItems()
+    val subreddit by remember { viewModel.subreddit }
 
-    LazyColumn(modifier = modifier) {
-        items(items = posts, key = { it.id }) {
-            it?.let {
-                PostItem(
-                    post = it,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 80.dp)
-                )
+    if (subreddit.isNotEmpty()) {
+        val posts = viewModel.getPosts(subreddit).collectAsLazyPagingItems()
+
+        LazyColumn(modifier = modifier) {
+            items(items = posts, key = { it.id }) {
+                it?.let {
+                    PostItem(
+                        post = it,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 80.dp)
+                    )
+                }
+                Divider(Modifier.padding(8.dp))
             }
-            Divider(Modifier.padding(8.dp))
         }
     }
 }
@@ -198,7 +247,6 @@ private fun PostItemPublication(publication: String, modifier: Modifier = Modifi
 private fun PostItemDetails(icon: ImageVector, info: String, modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         Icon(imageVector = icon, contentDescription = null)
-        Spacer(modifier = Modifier.width(4.dp))
         Text(text = info)
     }
 }
