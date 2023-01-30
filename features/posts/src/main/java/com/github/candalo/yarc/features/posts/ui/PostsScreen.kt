@@ -42,27 +42,35 @@ import com.github.candalo.yarc.features.posts.domain.model.Post
 
 @Composable
 fun PostsScreen(modifier: Modifier = Modifier) {
+    var searchText by rememberSaveable { mutableStateOf("") }
+    var searchTextSelected by remember { mutableStateOf("") }
+
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Spacer(Modifier.size(8.dp))
-        Search()
-        Posts()
+        Search(
+            searchText = searchText,
+            onSearchTextChange = { searchText = it },
+            onSearchTextSelected = { searchTextSelected = it }
+        )
+        Posts(subreddit = searchTextSelected)
     }
 }
 
 @Composable
 private fun Search(
-    modifier: Modifier = Modifier,
-    viewModel: PostsViewModel = hiltViewModel(),
+    searchText: String,
+    onSearchTextChange: (String) -> Unit,
+    onSearchTextSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    var text by rememberSaveable { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
+        value = searchText,
+        onValueChange = onSearchTextChange,
         label = { Text("Search subreddits") },
         maxLines = 1,
         modifier = modifier.fillMaxWidth(),
@@ -71,7 +79,7 @@ private fun Search(
         ),
         keyboardActions = KeyboardActions(
             onDone = {
-                viewModel.updateSubreddit(text)
+                onSearchTextSelected(searchText)
                 keyboardController?.hide()
             }
         )
@@ -80,11 +88,10 @@ private fun Search(
 
 @Composable
 private fun Posts(
+    subreddit: String,
     modifier: Modifier = Modifier,
     viewModel: PostsViewModel = hiltViewModel(),
 ) {
-    val subreddit by remember { viewModel.subreddit }
-
     if (subreddit.isNotEmpty()) {
         val posts = viewModel.getPosts(subreddit).collectAsLazyPagingItems()
 
