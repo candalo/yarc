@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
@@ -34,15 +35,17 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.Visibility
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.github.candalo.yarc.features.posts.R
 import com.github.candalo.yarc.features.posts.domain.model.Post
 
 @Composable
 fun PostsScreen(modifier: Modifier = Modifier) {
-    var searchText by rememberSaveable { mutableStateOf("") }
+    val viewModel: PostsViewModel = hiltViewModel()
     var searchTextSelected by remember { mutableStateOf("") }
 
     Column(
@@ -50,28 +53,23 @@ fun PostsScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Spacer(Modifier.size(8.dp))
-        Search(
-            searchText = searchText,
-            onSearchTextChange = { searchText = it },
-            onSearchTextSelected = { searchTextSelected = it }
-        )
-        Posts(subreddit = searchTextSelected)
+        Search(onSearchTextSelected = { searchTextSelected = it })
+        Posts(items = viewModel.getPosts(searchTextSelected).collectAsLazyPagingItems())
     }
 }
 
 @Composable
 private fun Search(
-    searchText: String,
-    onSearchTextChange: (String) -> Unit,
     onSearchTextSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var searchText by rememberSaveable { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     OutlinedTextField(
         value = searchText,
-        onValueChange = onSearchTextChange,
-        label = { Text("Search subreddits") },
+        onValueChange = { searchText = it },
+        label = { Text(stringResource(R.string.posts_search)) },
         maxLines = 1,
         modifier = modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(
@@ -88,25 +86,20 @@ private fun Search(
 
 @Composable
 private fun Posts(
-    subreddit: String,
-    modifier: Modifier = Modifier,
-    viewModel: PostsViewModel = hiltViewModel(),
+    items: LazyPagingItems<Post>,
+    modifier: Modifier = Modifier
 ) {
-    if (subreddit.isNotEmpty()) {
-        val posts = viewModel.getPosts(subreddit).collectAsLazyPagingItems()
-
-        LazyColumn(modifier = modifier) {
-            items(items = posts, key = { it.id }) {
-                it?.let {
-                    PostItem(
-                        post = it,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 80.dp)
-                    )
-                }
-                Divider(Modifier.padding(8.dp))
+    LazyColumn(modifier = modifier) {
+        items(items = items, key = { it.id }) {
+            it?.let {
+                PostItem(
+                    post = it,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 80.dp)
+                )
             }
+            Divider(Modifier.padding(8.dp))
         }
     }
 }

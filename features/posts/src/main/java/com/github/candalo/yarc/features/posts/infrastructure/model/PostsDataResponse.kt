@@ -12,5 +12,5 @@ internal data class PostsDataResponse(
     @SerialName("before")
     val before: String?,
     @SerialName("after")
-    val after: String
+    val after: String?
 )
