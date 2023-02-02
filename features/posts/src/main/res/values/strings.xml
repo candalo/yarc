@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="posts_search">Search subreddits</string>
+    <string name="posts_error_message">Something went wrong. Please try again.</string>
+    <string name="posts_error_try_again">Try again</string>
 </resources>

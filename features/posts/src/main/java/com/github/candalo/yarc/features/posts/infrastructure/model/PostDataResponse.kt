@@ -7,7 +7,7 @@ import java.time.Instant
 
 @Serializable
 internal data class PostDataResponse(
-    @SerialName("name")
+    @SerialName("id")
     val id: String,
     @SerialName("title")
     val title: String,

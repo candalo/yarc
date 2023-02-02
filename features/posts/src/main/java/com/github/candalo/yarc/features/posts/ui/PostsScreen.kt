@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Forum
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.*
@@ -19,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,6 +37,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.Visibility
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -47,6 +50,7 @@ import com.github.candalo.yarc.features.posts.domain.model.Post
 fun PostsScreen(modifier: Modifier = Modifier) {
     val viewModel: PostsViewModel = hiltViewModel()
     var searchTextSelected by remember { mutableStateOf("") }
+    val items = viewModel.getPosts(searchTextSelected).collectAsLazyPagingItems()
 
     Column(
         modifier = modifier,
@@ -54,7 +58,7 @@ fun PostsScreen(modifier: Modifier = Modifier) {
     ) {
         Spacer(Modifier.size(8.dp))
         Search(onSearchTextSelected = { searchTextSelected = it })
-        Posts(items = viewModel.getPosts(searchTextSelected).collectAsLazyPagingItems())
+        Posts(items = items, onTryAgainClick = { items.refresh() })
     }
 }
 
@@ -87,7 +91,8 @@ private fun Search(
 @Composable
 private fun Posts(
     items: LazyPagingItems<Post>,
-    modifier: Modifier = Modifier
+    onTryAgainClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier) {
         items(items = items, key = { it.id }) {
@@ -100,6 +105,55 @@ private fun Posts(
                 )
             }
             Divider(Modifier.padding(8.dp))
+        }
+
+        when {
+            items.loadState.refresh is LoadState.Loading -> {
+                item { PostsLoading(modifier = Modifier.fillParentMaxSize()) }
+            }
+            items.loadState.refresh is LoadState.Error -> {
+                item {
+                    PostsError(
+                        modifier = Modifier.fillParentMaxSize(),
+                        onTryAgainClick = onTryAgainClick
+                    )
+                }
+            }
+            items.loadState.append is LoadState.Loading -> {
+                item { PostsLoading(modifier = Modifier.fillMaxSize()) }
+            }
+            items.loadState.append is LoadState.Error -> {
+                item {
+                    PostsError(
+                        modifier = Modifier.fillMaxSize(),
+                        onTryAgainClick = onTryAgainClick
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun PostsLoading(modifier: Modifier = Modifier) {
+    Box(contentAlignment = Alignment.Center, modifier = modifier) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun PostsError(modifier: Modifier = Modifier, onTryAgainClick: () -> Unit) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(imageVector = Icons.Default.Error, contentDescription = null)
+        Spacer(modifier = Modifier.size(8.dp))
+        Text(text = stringResource(R.string.posts_error_message))
+        Spacer(modifier = Modifier.size(8.dp))
+        Button(onClick = { onTryAgainClick() }) {
+            Text(text = stringResource(R.string.posts_error_try_again))
         }
     }
 }
