@@ -4,12 +4,13 @@ import com.github.candalo.yarc.converter.Mapper
 import com.github.candalo.yarc.converter.Sanitizer
 import com.github.candalo.yarc.features.posts.domain.model.Post
 import com.github.candalo.yarc.features.posts.domain.model.PostMedia
+import com.github.candalo.yarc.features.posts.infrastructure.PostImageSanitizerType
 import com.github.candalo.yarc.features.posts.infrastructure.formatter.toElapsedDate
 import com.github.candalo.yarc.features.posts.infrastructure.model.PostResponse
 import javax.inject.Inject
 
 internal class PostMapper @Inject constructor(
-    private val imageSanitizer: Sanitizer<String>
+    @PostImageSanitizerType private val imageSanitizer: Sanitizer<String>
 ) : Mapper<PostResponse, Post> {
     override fun map(input: PostResponse): Post =
         Post(

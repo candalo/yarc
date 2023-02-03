@@ -107,27 +107,18 @@ private fun Posts(
             Divider(Modifier.padding(8.dp))
         }
 
-        when {
-            items.loadState.refresh is LoadState.Loading -> {
-                item { PostsLoading(modifier = Modifier.fillParentMaxSize()) }
-            }
-            items.loadState.refresh is LoadState.Error -> {
-                item {
-                    PostsError(
-                        modifier = Modifier.fillParentMaxSize(),
-                        onTryAgainClick = onTryAgainClick
-                    )
+        with(items.loadState) {
+            when {
+                refresh is LoadState.Loading || append is LoadState.Loading -> {
+                    item { PostsLoading(modifier = Modifier.fillMaxSize()) }
                 }
-            }
-            items.loadState.append is LoadState.Loading -> {
-                item { PostsLoading(modifier = Modifier.fillMaxSize()) }
-            }
-            items.loadState.append is LoadState.Error -> {
-                item {
-                    PostsError(
-                        modifier = Modifier.fillMaxSize(),
-                        onTryAgainClick = onTryAgainClick
-                    )
+                refresh is LoadState.Error || append is LoadState.Error -> {
+                    item {
+                        PostsError(
+                            modifier = Modifier.fillMaxSize(),
+                            onTryAgainClick = onTryAgainClick
+                        )
+                    }
                 }
             }
         }

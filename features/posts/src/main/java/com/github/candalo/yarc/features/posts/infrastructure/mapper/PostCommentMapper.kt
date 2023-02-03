@@ -5,8 +5,9 @@ import com.github.candalo.yarc.features.posts.domain.model.PostComment
 import com.github.candalo.yarc.features.posts.domain.model.TreeNode
 import com.github.candalo.yarc.features.posts.infrastructure.formatter.toElapsedDate
 import com.github.candalo.yarc.features.posts.infrastructure.model.PostCommentDataResponse
+import javax.inject.Inject
 
-internal class PostCommentMapper : Mapper<PostCommentDataResponse, TreeNode<PostComment>> {
+internal class PostCommentMapper @Inject constructor() : Mapper<PostCommentDataResponse, TreeNode<PostComment>> {
     override fun map(input: PostCommentDataResponse): TreeNode<PostComment> =
         TreeNode(
             PostComment(
