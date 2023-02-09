@@ -34,6 +34,20 @@ internal object ServiceModule {
 @InstallIn(ViewModelComponent::class)
 internal abstract class MapperModule {
     @Binds
+    abstract fun bindPostMapper(
+        postMapper: PostMapper
+    ): Mapper<PostResponse, Post>
+
+    @Binds
+    abstract fun bindPostCommentsMapper(
+        postCommentsMapper: PostCommentMapper
+    ): Mapper<PostCommentDataResponse, TreeNode<PostComment>>
+}
+
+@Module
+@InstallIn(ViewModelComponent::class)
+internal abstract class SanitizerModule {
+    @Binds
     @PostImageSanitizerType
     abstract fun bindPostImageSanitizer(
         postsSanitizer: PostImageSanitizer
@@ -44,16 +58,6 @@ internal abstract class MapperModule {
     abstract fun bindPostCommentEndpointSanitizer(
         postCommentEndpointSanitizer: PostCommentEndpointSanitizer
     ): Sanitizer<String>
-
-    @Binds
-    abstract fun bindPostMapper(
-        postMapper: PostMapper
-    ): Mapper<PostResponse, Post>
-
-    @Binds
-    abstract fun bindPostCommentsMapper(
-        postCommentsMapper: PostCommentMapper
-    ): Mapper<PostCommentDataResponse, TreeNode<PostComment>>
 }
 
 @Qualifier

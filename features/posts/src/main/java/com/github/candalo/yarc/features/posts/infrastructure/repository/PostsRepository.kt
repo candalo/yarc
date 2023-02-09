@@ -46,11 +46,13 @@ internal class PostsRepository @Inject constructor(
 
     fun fetchPostComments(permalink: String): Flow<List<TreeNode<PostComment>>> =
         flow {
-            service
-                .getPostComments(endpointSanitizer.sanitize(permalink))
-                .last()
-                .data
-                .postCommentsResponse
-                .map { postsMapper.commentsMapper.map(it.data) }
+            emit(
+                service
+                    .getPostComments(endpointSanitizer.sanitize(permalink))
+                    .last()
+                    .data
+                    .postCommentsResponse
+                    .map { postsMapper.commentsMapper.map(it.data) }
+            )
         }
 }

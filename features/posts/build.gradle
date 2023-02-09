@@ -44,6 +44,8 @@ dependencies {
     implementation libs.hilt.nav.compose
     kapt libs.hilt.compiler
     implementation libs.kotlin.serialization
+    implementation libs.markon
+    implementation libs.lifecycle.runtime.compose
     implementation libs.paging
     implementation libs.paging.compose
     implementation libs.retrofit

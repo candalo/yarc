@@ -1,0 +1,27 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+}
+
+apply from: "$rootDir/gradle/android-library-base.gradle"
+
+android {
+    namespace 'com.github.candalo.yarc.navigation'
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.kotlin.compiler.extensions.get()
+    }
+}
+
+dependencies {
+    implementation project(rootProject.ext.featurePostsModule)
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.runtime
+    implementation libs.kotlin.serialization
+    implementation libs.navigation.compose
+}

@@ -8,6 +8,8 @@ import java.time.Instant
 
 @Serializable
 internal data class PostCommentDataResponse(
+    @SerialName("id")
+    val id: String,
     @SerialName("body")
     val body: String? = null,
     @SerialName("author")

@@ -2,6 +2,7 @@
 
 package com.github.candalo.yarc.features.posts.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -47,7 +48,10 @@ import com.github.candalo.yarc.features.posts.R
 import com.github.candalo.yarc.features.posts.domain.model.Post
 
 @Composable
-fun PostsScreen(modifier: Modifier = Modifier) {
+fun PostsScreen(
+    modifier: Modifier = Modifier,
+    onNavigateToPostDetails: (Post) -> Unit
+) {
     val viewModel: PostsViewModel = hiltViewModel()
     var searchTextSelected by remember { mutableStateOf("") }
     val items = viewModel.getPosts(searchTextSelected).collectAsLazyPagingItems()
@@ -56,9 +60,12 @@ fun PostsScreen(modifier: Modifier = Modifier) {
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Spacer(Modifier.size(8.dp))
         Search(onSearchTextSelected = { searchTextSelected = it })
-        Posts(items = items, onTryAgainClick = { items.refresh() })
+        Posts(
+            items = items,
+            onItemClick = { onNavigateToPostDetails(it) },
+            onTryAgainClick = { items.refresh() }
+        )
     }
 }
 
@@ -91,6 +98,7 @@ private fun Search(
 @Composable
 private fun Posts(
     items: LazyPagingItems<Post>,
+    onItemClick: (Post) -> Unit,
     onTryAgainClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -99,6 +107,7 @@ private fun Posts(
             it?.let {
                 PostItem(
                     post = it,
+                    onItemClick = onItemClick,
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 80.dp)
@@ -152,9 +161,10 @@ private fun PostsError(modifier: Modifier = Modifier, onTryAgainClick: () -> Uni
 @Composable
 private fun PostItem(
     post: Post,
+    onItemClick: (Post) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Surface(modifier) {
+    Surface(modifier.clickable { onItemClick(post) }) {
         ConstraintLayout {
             val (
                 thumbnail,

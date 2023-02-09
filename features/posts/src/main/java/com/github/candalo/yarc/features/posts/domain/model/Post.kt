@@ -3,7 +3,7 @@ package com.github.candalo.yarc.features.posts.domain.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class Post(
+data class Post(
     val id: String,
     val title: String,
     val description: String,

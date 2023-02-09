@@ -11,6 +11,7 @@ internal class PostCommentMapper @Inject constructor() : Mapper<PostCommentDataR
     override fun map(input: PostCommentDataResponse): TreeNode<PostComment> =
         TreeNode(
             PostComment(
+                input.id,
                 input.body ?: "",
                 input.authorName,
                 input.upvotesCount,
