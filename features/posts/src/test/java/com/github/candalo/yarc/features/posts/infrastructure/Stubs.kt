@@ -9,6 +9,7 @@ import java.time.Instant
 private val instant = Instant.now().minusSeconds(3600)
 
 internal val postCommentDataResponse = PostCommentDataResponse(
+    "1",
     "Hello darkness my old friend",
     "candalo",
     100,
@@ -17,6 +18,7 @@ internal val postCommentDataResponse = PostCommentDataResponse(
 )
 
 internal val postComment = PostComment(
+    "1",
     "Hello darkness my old friend",
     "candalo",
     100,
@@ -29,6 +31,7 @@ internal val postCommentDataResponseWithReplies = postCommentDataResponse.copy(
             listOf(
                 PostCommentResponse(
                     PostCommentDataResponse(
+                        "1",
                         "I've come to talk with you again",
                         "oladnac",
                         50,
@@ -42,6 +45,7 @@ internal val postCommentDataResponseWithReplies = postCommentDataResponse.copy(
 )
 
 internal val postCommentReply = PostComment(
+    "1",
     "I've come to talk with you again",
     "oladnac",
     50,

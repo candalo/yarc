@@ -5,19 +5,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Forum
 import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme.typography
@@ -25,9 +25,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -51,30 +50,22 @@ import io.noties.markwon.Markwon
 @Composable
 fun PostDetailsScreen(post: Post, modifier: Modifier = Modifier) {
     val viewModel: PostDetailsViewModel = hiltViewModel()
-    val postComments by viewModel
-        .getPostDetails(post.permalink)
-        .collectAsStateWithLifecycle(initialValue = listOf())
-    var toggleComment: Boolean by remember { mutableStateOf(true) }
+    val postComments by remember {
+        viewModel.getPostDetails(post.permalink)
+    }.collectAsStateWithLifecycle(initialValue = listOf())
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(8.dp),
+        modifier = modifier.fillMaxSize().padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         PostImage(post = post)
         PostDescription(post = post)
         Spacer(modifier = Modifier.size(16.dp))
         PostAuthor(post = post, modifier = Modifier.align(Alignment.Start))
-        Spacer(modifier = Modifier.size(8.dp))
+        Spacer(modifier = Modifier.size(4.dp))
         PostMetadata(post = post, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.size(16.dp))
-        PostComments(
-            commentsTree = postComments,
-            toggleComment = toggleComment,
-            onCommentClicked = { toggleComment = it },
-            modifier = Modifier.wrapContentHeight()
-        )
+        PostComments(commentsTree = postComments, modifier = Modifier.wrapContentHeight())
     }
 }
 
@@ -85,10 +76,11 @@ private fun PostImage(post: Post, modifier: Modifier = Modifier) {
             .data(post.media.mediaUrl)
             .crossfade(true)
             .build(),
-        contentScale = ContentScale.Crop,
+        contentScale = ContentScale.FillBounds,
         contentDescription = null,
         modifier = modifier
             .padding(8.dp)
+            .size(300.dp)
             .clip(RoundedCornerShape(4.dp))
     )
 }
@@ -159,24 +151,84 @@ private fun PostDetails(icon: ImageVector, info: String, modifier: Modifier = Mo
 }
 
 @Composable
-private fun PostComments(
-    commentsTree: List<TreeNode<PostComment>>,
-    toggleComment: Boolean,
-    onCommentClicked: (Boolean) -> Unit,
+private fun PostComments(commentsTree: List<TreeNode<PostComment>>, modifier: Modifier = Modifier) {
+    val expandedItems = remember { mutableStateListOf<TreeNode<PostComment>>() }
+    LazyColumn(modifier = modifier) {
+        nodes(
+            nodes = commentsTree,
+            isExpanded = {
+                expandedItems.contains(it)
+            },
+            toggleExpanded = {
+                if (expandedItems.contains(it)) {
+                    expandedItems.remove(it)
+                } else {
+                    expandedItems.add(it)
+                }
+            }
+        )
+    }
+}
+
+private fun LazyListScope.nodes(
+    nodes: List<TreeNode<PostComment>>,
+    isExpanded: (TreeNode<PostComment>) -> Boolean,
+    toggleExpanded: (TreeNode<PostComment>) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier) {
-        items(items = commentsTree, key = { it.value.id }) {
-            PostComment(treeNode = it)
-            Divider(thickness = 1.dp)
-        }
+    nodes.forEach { node ->
+        node(
+            node,
+            isExpanded = isExpanded,
+            toggleExpanded = toggleExpanded,
+            modifier = modifier
+        )
+    }
+}
+
+private fun LazyListScope.node(
+    node: TreeNode<PostComment>,
+    isExpanded: (TreeNode<PostComment>) -> Boolean,
+    toggleExpanded: (TreeNode<PostComment>) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    item {
+        PostComment(node, toggleExpanded, modifier)
+    }
+
+    if (isExpanded(node)) {
+        nodes(
+            node.children,
+            isExpanded = isExpanded,
+            toggleExpanded = toggleExpanded,
+            modifier = modifier.padding(start = 16.dp)
+        )
     }
 }
 
 @Composable
-private fun PostComment(treeNode: TreeNode<PostComment>, modifier: Modifier = Modifier) {
-    Surface(modifier = modifier.clickable(enabled = treeNode.hasChildren()) { }) {
-        MarkdownText(text = treeNode.value.body)
+private fun PostComment(
+    treeNode: TreeNode<PostComment>,
+    toggleExpanded: (TreeNode<PostComment>) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier.clickable(enabled = treeNode.hasChildren()) { toggleExpanded(treeNode) }
+    ) {
+        Column {
+            Row {
+                Text(text = treeNode.value.authorName, style = typography.bodyMedium, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.size(32.dp))
+                Icon(imageVector = Icons.Filled.ArrowUpward, contentDescription = null)
+                Spacer(modifier = Modifier.size(4.dp))
+                Text(text = treeNode.value.upvotesCount.toString())
+                Spacer(modifier = Modifier.weight(1F).fillMaxHeight())
+                Text(text = treeNode.value.publicationElapsedTime)
+            }
+            Spacer(modifier = Modifier.size(8.dp))
+            MarkdownText(text = treeNode.value.body)
+            Spacer(modifier = Modifier.size(8.dp))
+        }
     }
 }
 

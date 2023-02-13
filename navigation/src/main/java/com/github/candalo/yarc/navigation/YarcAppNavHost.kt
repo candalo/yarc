@@ -1,7 +1,6 @@
 package com.github.candalo.yarc.navigation
 
 import android.net.Uri
-import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController

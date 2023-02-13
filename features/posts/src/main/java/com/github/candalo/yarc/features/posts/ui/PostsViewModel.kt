@@ -7,7 +7,9 @@ import androidx.paging.cachedIn
 import com.github.candalo.yarc.features.posts.domain.model.Post
 import com.github.candalo.yarc.features.posts.infrastructure.repository.PostsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,6 +20,6 @@ internal class PostsViewModel @Inject constructor(
         val subredditSearch = subreddit.ifEmpty {
             "all"
         }
-        return repository.fetchPosts(subredditSearch).cachedIn(viewModelScope)
+        return repository.fetchPosts(subredditSearch).flowOn(Dispatchers.IO).cachedIn(viewModelScope)
     }
 }

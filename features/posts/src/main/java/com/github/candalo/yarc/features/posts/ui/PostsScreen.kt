@@ -239,7 +239,7 @@ private fun PostItemThumbnail(thumbnailUrl: String?, modifier: Modifier = Modifi
             .data(thumbnailUrl)
             .crossfade(true)
             .build(),
-        contentScale = ContentScale.Crop,
+        contentScale = ContentScale.FillBounds,
         contentDescription = null,
         modifier = modifier
             .padding(8.dp)
@@ -302,6 +302,7 @@ private fun PostItemPublication(publication: String, modifier: Modifier = Modifi
 private fun PostItemDetails(icon: ImageVector, info: String, modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         Icon(imageVector = icon, contentDescription = null)
+        Spacer(modifier = Modifier.size(4.dp))
         Text(text = info)
     }
 }
