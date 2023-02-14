@@ -13,12 +13,12 @@ internal data class PostCommentDataResponse(
     @SerialName("body")
     val body: String? = null,
     @SerialName("author")
-    val authorName: String,
+    val authorName: String? = null,
     @SerialName("ups")
-    val upvotesCount: Int,
+    val upvotesCount: Int = 0,
     @SerialName("created_utc")
     @Serializable(InstantSerializer::class)
-    val timestamp: Instant,
+    val timestamp: Instant? = null,
     @SerialName("replies")
     @Serializable(PostCommentRepliesSerializer::class)
     val replies: PostDetailsResponse? = null

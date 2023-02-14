@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowUpward
@@ -54,18 +54,20 @@ fun PostDetailsScreen(post: Post, modifier: Modifier = Modifier) {
         viewModel.getPostDetails(post.permalink)
     }.collectAsStateWithLifecycle(initialValue = listOf())
 
-    Column(
-        modifier = modifier.fillMaxSize().padding(8.dp),
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        PostImage(post = post)
-        PostDescription(post = post)
-        Spacer(modifier = Modifier.size(16.dp))
-        PostAuthor(post = post, modifier = Modifier.align(Alignment.Start))
-        Spacer(modifier = Modifier.size(4.dp))
-        PostMetadata(post = post, modifier = Modifier.fillMaxWidth())
-        Spacer(modifier = Modifier.size(16.dp))
-        PostComments(commentsTree = postComments, modifier = Modifier.wrapContentHeight())
+        item { PostImage(post = post) }
+        item { PostDescription(post = post) }
+        item { Spacer(modifier = Modifier.size(16.dp)) }
+        item { PostAuthor(post = post, modifier = Modifier.fillMaxWidth()) }
+        item { Spacer(modifier = Modifier.size(4.dp)) }
+        item { PostMetadata(post = post, modifier = Modifier.fillMaxWidth()) }
+        item { Spacer(modifier = Modifier.size(16.dp)) }
+        item { PostComments(commentsTree = postComments, modifier = Modifier.wrapContentHeight()) }
     }
 }
 
@@ -151,33 +153,33 @@ private fun PostDetails(icon: ImageVector, info: String, modifier: Modifier = Mo
 }
 
 @Composable
-private fun PostComments(commentsTree: List<TreeNode<PostComment>>, modifier: Modifier = Modifier) {
+private fun LazyItemScope.PostComments(commentsTree: List<TreeNode<PostComment>>, modifier: Modifier = Modifier) {
     val expandedItems = remember { mutableStateListOf<TreeNode<PostComment>>() }
-    LazyColumn(modifier = modifier) {
-        nodes(
-            nodes = commentsTree,
-            isExpanded = {
-                expandedItems.contains(it)
-            },
-            toggleExpanded = {
-                if (expandedItems.contains(it)) {
-                    expandedItems.remove(it)
-                } else {
-                    expandedItems.add(it)
-                }
+
+    PostCommentNodes(
+        nodes = commentsTree,
+        isExpanded = {
+            expandedItems.contains(it)
+        },
+        toggleExpanded = {
+            if (expandedItems.contains(it)) {
+                expandedItems.remove(it)
+            } else {
+                expandedItems.add(it)
             }
-        )
-    }
+        }
+    )
 }
 
-private fun LazyListScope.nodes(
+@Composable
+private fun LazyItemScope.PostCommentNodes(
     nodes: List<TreeNode<PostComment>>,
     isExpanded: (TreeNode<PostComment>) -> Boolean,
     toggleExpanded: (TreeNode<PostComment>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     nodes.forEach { node ->
-        node(
+        PostCommentNode(
             node,
             isExpanded = isExpanded,
             toggleExpanded = toggleExpanded,
@@ -186,18 +188,17 @@ private fun LazyListScope.nodes(
     }
 }
 
-private fun LazyListScope.node(
+@Composable
+private fun LazyItemScope.PostCommentNode(
     node: TreeNode<PostComment>,
     isExpanded: (TreeNode<PostComment>) -> Boolean,
     toggleExpanded: (TreeNode<PostComment>) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    item {
-        PostComment(node, toggleExpanded, modifier)
-    }
+    PostComment(node, toggleExpanded, modifier)
 
     if (isExpanded(node)) {
-        nodes(
+        PostCommentNodes(
             node.children,
             isExpanded = isExpanded,
             toggleExpanded = toggleExpanded,

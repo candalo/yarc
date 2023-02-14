@@ -52,6 +52,7 @@ internal class PostsRepository @Inject constructor(
                     .last()
                     .data
                     .postCommentsResponse
+                    .filter { it.isComment()  }
                     .map { postsMapper.commentsMapper.map(it.data) }
             )
         }

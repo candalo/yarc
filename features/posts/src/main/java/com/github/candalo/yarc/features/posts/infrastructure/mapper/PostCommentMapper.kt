@@ -13,16 +13,16 @@ internal class PostCommentMapper @Inject constructor() : Mapper<PostCommentDataR
             PostComment(
                 input.id,
                 input.body ?: "",
-                input.authorName,
+                input.authorName ?: "",
                 input.upvotesCount,
-                input.timestamp.toElapsedDate()
+                input.timestamp?.toElapsedDate() ?: ""
             )
         ).apply {
             if (input.replies == null) {
                 return this
             }
             input.replies.data.postCommentsResponse.forEach {
-                add(map(it.data))
+                if (it.isComment()) add(map(it.data))
             }
         }
 }
